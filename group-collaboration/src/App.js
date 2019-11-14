@@ -1,9 +1,19 @@
 import React from "react";
-import logo from "./logo.svg";
+import TopBar from './containers/TopBar';
+import Projects from './containers/Projects'
 import "./App.css";
 
 function App() {
-    return <div className="App">Group Collaboration</div>;
+    return (
+        <div>
+            <div className="top-bar">
+                <TopBar />
+            </div>
+            <div className="projects-main">
+                <Projects />
+            </div>
+        </div>
+    );
 }
 
 export default App;
