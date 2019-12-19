@@ -6,7 +6,7 @@ import {Paper} from '@material-ui/core'
 
 const Projects = () => {
   return (
-    <div>
+    <div style={{marginTop: '30px'}}>
       <div>
         Group Collaboration
       </div>
