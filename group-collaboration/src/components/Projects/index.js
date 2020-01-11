@@ -1,10 +1,9 @@
 import React from 'react';
-import { projects } from './projects';
+import {projects} from './projects';
 import './styles.css';
 import {Paper} from '@material-ui/core'
 
-
-const Projects = () => {
+export default function() {
   return (
     <div style={{marginTop: '30px'}}>
       <div>
@@ -41,5 +40,3 @@ const Projects = () => {
     </div>
   );
 };
-
-export default Projects;
