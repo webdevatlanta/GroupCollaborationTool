@@ -1,7 +1,10 @@
 import React, {useState, useContext} from 'react'
+import {useHistory} from 'react-router-dom'
+import * as ROUTES from '../../constants/routes';
 import {FirebaseContext} from '../Firebase'
 
 export default function() {
+  const history = useHistory()
   const firebase = useContext(FirebaseContext)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -12,7 +15,7 @@ export default function() {
 
     firebase
       .doSignInWithEmailAndPassword(email, password)
-      .then( user => console.log(user) )
+      .then( user => history.push(ROUTES.LANDING) )
       .catch( error => setError(error) )
   }
 

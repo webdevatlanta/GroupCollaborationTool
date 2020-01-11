@@ -1,7 +1,6 @@
 import React, {useContext, useState, useEffect} from "react";
-import TopBar from './containers/TopBar';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
-import Navigation from './components/Navigation'
+import TopBar from './components/TopBar';
 import SignUpPage from './components/SignUp'
 import SignInPage from './components/SignIn'
 import AccountPage from './components/Account'
@@ -23,20 +22,18 @@ export default function() {
 
   return (
     <div>
-      <div className="top-bar">
-        <TopBar />
-      </div>
-      <Router>
-        <div>
-          <SessionContext.Provider value={user}>
-            <Navigation/>
-          </SessionContext.Provider>
-          <hr/>
-          <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-          <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-          <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-        </div>
-      </Router>
+      <SessionContext.Provider value={user}>
+        <Router>
+          <div className="top-bar">
+            <TopBar />
+          </div>
+          <div>
+            <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+            <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+            <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+          </div>
+        </Router>
+      </SessionContext.Provider>
     </div>
   );
 }

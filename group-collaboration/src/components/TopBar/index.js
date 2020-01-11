@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -16,6 +16,10 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 
+import { useHistory } from "react-router-dom";
+import * as ROUTES from '../../constants/routes';
+import {SessionContext} from '../Session'
+import {FirebaseContext} from '../Firebase'
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -80,6 +84,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  const session = useContext(SessionContext)
+  const firebase = useContext(FirebaseContext)
+  const history = useHistory()
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -103,6 +111,17 @@ export default function PrimarySearchAppBar() {
   const handleMobileMenuOpen = event => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const handleSignIn = event => {
+    handleMenuClose();
+    history.push(ROUTES.SIGN_IN)
+  }
+
+  const handleSignOut = event => {
+    handleMenuClose();
+    firebase.doSignOut();
+    history.push(ROUTES.LANDING)
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -131,33 +150,41 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+      { session &&
+        <>
+          <MenuItem>
+            <IconButton aria-label="show 4 new mails" color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <MailIcon />
+              </Badge>
+            </IconButton>
+            <p>Messages</p>
+          </MenuItem>
+          <MenuItem>
+            <IconButton aria-label="show 11 new notifications" color="inherit">
+              <Badge badgeContent={11} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <p>Notifications</p>
+          </MenuItem>
+          <MenuItem onClick={handleProfileMenuOpen}>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <p>Profile</p>
+          </MenuItem>
+          <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+        </>
+      }
+      { !session &&
+        <MenuItem onClick={handleSignIn}>Sign In</MenuItem>
+      }
     </Menu>
   );
 
