@@ -3,7 +3,7 @@ import {SessionContext} from '../Session'
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 
-export default function(props) {
+export default function() {
   return(
     <div>
       <SessionContext.Consumer>

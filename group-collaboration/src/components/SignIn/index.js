@@ -1,9 +1,11 @@
-import React from 'react';
+import React from 'react'
+import SignInForm from './form'
 
-const SignIn = () => (
+export default function() {
+  return (
   <div>
     <h1>SignIn</h1>
+    <SignInForm/>
   </div>
-);
-
-export default SignIn;
+  )
+}

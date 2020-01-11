@@ -1,6 +1,6 @@
 import React from 'react'
 import SignUpForm from './form'
-import {FirebaseContext} from '../Firebase';
+import {FirebaseContext} from '../Firebase'
 
 export default function(props) {
   return (
