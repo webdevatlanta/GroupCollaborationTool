@@ -12,7 +12,7 @@ const config = {
   measurementId: process.env.REACT_MEASUREMENT_ID,
 };
 
-class Firebase {
+export default class Firebase {
   constructor() {
     app.initializeApp(config);
     this.auth = app.auth();
@@ -26,5 +26,3 @@ class Firebase {
 
   doSignOut = () => this.auth.signOut();
 }
-
-export default Firebase;
