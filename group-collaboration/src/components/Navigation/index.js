@@ -1,5 +1,6 @@
 import React from 'react';
 import {SessionContext} from '../Session'
+import SignOutButton from '../SignOut'
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 
@@ -15,6 +16,9 @@ export default function() {
         </li>
         <li>
           <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+        </li>
+        <li>
+          <SignOutButton />
         </li>
         <li>
           <Link to={ROUTES.LANDING}>Landing</Link>
