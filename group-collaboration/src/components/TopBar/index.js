@@ -143,9 +143,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       { session &&
-        <>
-          <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
-        </>
+        <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
       }
       { !session &&
         <MenuItem onClick={handleSignIn}>Login</MenuItem>
