@@ -7,7 +7,6 @@ import {SessionContext} from '../Session'
 export default function() {
   const firebase = useContext(FirebaseContext)
   const session = useContext(SessionContext)
-  // eslint-disable-next-line
   const [projects, setProjects] = useState([])
   const [error, setError] = useState("")
 
@@ -27,25 +26,10 @@ export default function() {
     }
   }, [session, firebase.db])
 
-  const addProject = (owner, name, type, description) => {
-    firebase.db.collection("projects-test")
-      .add({
-        owner: owner.uid,
-        name,
-        type,
-        description
-      })
-      .then(function() {
-        console.log("Document successfully written!");
-      })
-      .catch( err => setError(err) )
-  }
-
   return (
     <div style={{marginTop: '30px'}}>
       <div>
         Group Collaboration
-        <button onClick={ e => addProject(session, "1","2","3")}>add</button> 
         { error && <p>{error.message}</p> }
       </div>
       <Paper className="projects-container">
