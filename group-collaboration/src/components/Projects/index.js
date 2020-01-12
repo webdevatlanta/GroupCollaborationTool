@@ -12,7 +12,8 @@ export default function() {
 
   useEffect( () => {
     if (session) {
-      firebase.db.collection("projects-test")
+      const collectionName = process.env.REACT_APP_PROJECTS_COLLECTION
+      firebase.db.collection(collectionName)
         .get()
         .then( querySnapshot => {
           const data = querySnapshot.docs.map(doc => doc.data());
