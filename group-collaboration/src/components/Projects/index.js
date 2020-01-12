@@ -12,15 +12,13 @@ export default function() {
 
   useEffect( () => {
     if (session) {
-      const unsubscribe = firebase.db.collection("projects-test")
-      .get()
-      .then(querySnapshot => {
-        const data = querySnapshot.docs.map(doc => doc.data());
-        console.log(data);
-        setProjects(data);
-      })
-      .catch( err => setError(err) )
-      return () => unsubscribe()
+      firebase.db.collection("projects-test")
+        .get()
+        .then( querySnapshot => {
+          const data = querySnapshot.docs.map(doc => doc.data());
+          setProjects(data);
+        })
+        .catch( err => setError(err) )
     } else {
       setProjects([]);
     }
