@@ -9,7 +9,7 @@ export default function() {
   const firebase = useContext(FirebaseContext)
   const session = useContext(SessionContext)
   const [name, setName] = useState("")
-  const [type, setType] = useState("")
+  const [type, setType] = useState("Open Source")
   const [description, setDescription] = useState("")
   const [error, setError] = useState("")
 
@@ -47,18 +47,19 @@ export default function() {
           value={name}
           onChange={e => setName(e.target.value)}
         />
-        <input
-          type="text"
-          placeholder="project type"
-          value={type}
-          onChange={e => setType(e.target.value)}
-        />
-        <input
-          type="text"
+        <select value={type} onChange={e => setType(e.target.value)}>
+            <option value="Open Source">Open Source</option>
+            <option value="Private">Private</option>
+          </select>
+        <br/>
+        <textarea
+          cols="45"
+          rows="10"
           placeholder="project description"
           value={description}
           onChange={e => setDescription(e.target.value)}
         />
+        <br/>
         <input type="submit" value="Create" disabled={!validate()} />
 
         {error && <p>{error.message}</p>}
