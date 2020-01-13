@@ -21,7 +21,13 @@ export default class Firebase {
   }
 
   doCreateUserWithEmailAndPassword = (email, password) =>
-    this.auth.createUserWithEmailAndPassword(email, password)
+    this.auth
+      .createUserWithEmailAndPassword(email, password)
+      .then( (userCredential) => {
+        const displayName = this.auth.currentUser.email.split('@')[0];
+        this.auth.currentUser.updateProfile({displayName});
+        return Promise.resolve(userCredential)
+      })
 
   doSignInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password)

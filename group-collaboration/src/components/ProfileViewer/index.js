@@ -33,9 +33,12 @@ export default function(props) {
     <div>
       <h1>Profile Viewer</h1>
       { profile &&
-        <p>
-          {profile.description}
-        </p>
+        <>
+          <p>{profile.displayName}</p>
+          <p>
+            {profile.description}
+          </p>
+        </>
       }
       { !profile &&
         <p>

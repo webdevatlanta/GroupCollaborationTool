@@ -1,7 +1,9 @@
 import React, {useState, useContext, useEffect} from 'react'
 import {SessionContext} from '../Session'
+import {FirebaseContext} from '../Firebase'
 
 export default function() {
+  const firebase = useContext(FirebaseContext)
   const session = useContext(SessionContext)
   const [displayName, setDisplayName] = useState(session.displayName)
   const [validated, setValidated] = useState(false)
@@ -19,15 +21,22 @@ export default function() {
       displayName !== session.displayName)
   }, [displayName, session.displayName])
 
+  // Copies the User displayName field into the adjunct profile document.
+  const syncProfile = (user) => {
+    const collectionName = process.env.REACT_APP_PROFILES_COLLECTION
+    firebase.db.collection(collectionName)
+      .doc(user.uid)
+      .update({ displayName: user.displayName })
+      .catch( error => setError(error) )
+  }
+
   const onSubmit = (event) => {
     event.preventDefault()
 
     session.updateProfile({ displayName })
-      .then(function() {
-        setValidated(false) // disables update button
-      }, function(error) {
-        setError(error)
-      });
+      .then( () => setValidated(false), // disables update button
+        (error) => setError(error) )
+      .then( () => syncProfile(session))
   }
 
   return (

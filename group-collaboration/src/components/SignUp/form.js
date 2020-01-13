@@ -19,12 +19,20 @@ export default function() {
     )
   }
 
+  const createAdjunctProfile = (user) =>
+    firebase.db
+      .collection(process.env.REACT_APP_PROFILES_COLLECTION)
+      .doc(user.uid)
+      .set({ displayName: user.email.split('@')[0] })
+      .catch( error => setError(error) )
+
   const onSubmit = (event) => {
     event.preventDefault();
 
     firebase
       .doCreateUserWithEmailAndPassword(email, password)
-      .then( user => history.push(ROUTES.VIEW_PROFILE) )
+      .then( () => createAdjunctProfile(firebase.auth.currentUser) )
+      .then( () => history.push(ROUTES.EDIT_PROFILE) )
       .catch( error => setError(error) )
   }
 

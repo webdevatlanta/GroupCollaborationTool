@@ -31,15 +31,12 @@ export default function() {
   const onSubmit = (event) => {
     event.preventDefault();
 
+    setSaveable(false);
+
     const collectionName = process.env.REACT_APP_PROFILES_COLLECTION
     firebase.db.collection(collectionName)
       .doc(session.uid)
-      .set({
-        description
-      })
-      .then( (data) => {
-        setSaveable(false);
-      })
+      .update({ description })
       .catch( error => setError(error) )
   }
 
