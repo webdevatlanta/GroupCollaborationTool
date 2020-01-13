@@ -23,6 +23,12 @@ export default function(props) {
     }
   }, [uid, session, firebase.db])
 
+  if (!session) {
+    return (
+      <p>You need to be logged in to see this content.</p>
+    )
+  }
+
   return (
     <div>
       <h1>Profile Viewer</h1>
