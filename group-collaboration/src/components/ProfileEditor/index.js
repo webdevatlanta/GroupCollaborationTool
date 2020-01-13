@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 import {SessionContext} from '../Session'
 import {FirebaseContext} from '../Firebase'
@@ -12,6 +12,16 @@ export default function() {
   const history = useHistory()
   const session = useContext(SessionContext)
   const firebase = useContext(FirebaseContext)
+  const [viewerLink, setViewerLink] = useState("")
+
+  useEffect( () => {
+    if (session) {
+      const link = ROUTES.VIEW_PROFILE.replace(":uid", session.uid)
+      setViewerLink(link)
+    } else {
+      setViewerLink(null)
+    }
+  }, [session])
 
   const handleLogout = () => {
     firebase.doSignOut()
@@ -27,6 +37,7 @@ export default function() {
             <EmailVerifier/>
             <NameEditor/>
             <BiographyEditor/>
+            <a href={viewerLink}>View this profile</a>
             <br/>
             <Button color="primary" onClick={handleLogout}>
               Click to log out

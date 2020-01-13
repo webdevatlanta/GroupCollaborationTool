@@ -18,7 +18,7 @@ export default function() {
   }, [session])
 
   const openProfile = event => {
-    history.push(ROUTES.PROFILE)
+    history.push(ROUTES.EDIT_PROFILE)
   }
 
   return (

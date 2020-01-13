@@ -3,7 +3,8 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 import TopBar from './components/TopBar';
 import SignUpPage from './components/SignUp'
 import SignInPage from './components/SignIn'
-import ProfilePage from './components/Profile'
+import ProfileViewer from './components/ProfileViewer'
+import ProfileEditor from './components/ProfileEditor'
 import LandingPage from './components/Landing'
 import NewProjectPage from './components/NewProject'
 import * as ROUTES from './constants/routes'
@@ -32,7 +33,8 @@ export default function() {
           <div>
             <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
             <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-            <Route path={ROUTES.PROFILE} component={ProfilePage} />
+            <Route exact path={ROUTES.EDIT_PROFILE} component={ProfileEditor} />
+            <Route path={ROUTES.VIEW_PROFILE} component={ProfileViewer} />
             <Route path={ROUTES.NEW_PROJECT} component={NewProjectPage} />
             <Route exact path={ROUTES.LANDING} component={LandingPage} />
           </div>
