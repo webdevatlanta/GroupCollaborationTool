@@ -8,11 +8,10 @@ export default function() {
 
   const handleVerify = (event) => {
     event.preventDefault();
+    setVerifying(true);
     session.sendEmailVerification({
-      handleCodeInApp: true,
       url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
     });
-    setVerifying(true);
   }
 
   if(session.emailVerified) {
