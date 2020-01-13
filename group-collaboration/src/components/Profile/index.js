@@ -4,6 +4,7 @@ import {SessionContext} from '../Session'
 import {FirebaseContext} from '../Firebase'
 import EmailVerifier from './emailVerifier'
 import NameEditor from './nameEditor'
+import BiographyEditor from './biographyEditor'
 import Button from '@material-ui/core/Button'
 import * as ROUTES from '../../constants/routes';
 
@@ -25,6 +26,7 @@ export default function() {
           <>
             <EmailVerifier/>
             <NameEditor/>
+            <BiographyEditor/>
             <br/>
             <Button color="primary" onClick={handleLogout}>
               Click to log out
