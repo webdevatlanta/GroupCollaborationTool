@@ -24,7 +24,7 @@ export default function() {
 
     firebase
       .doCreateUserWithEmailAndPassword(email, password)
-      .then( user => history.push(ROUTES.LANDING) )
+      .then( user => history.push(ROUTES.VIEW_PROFILE) )
       .catch( error => setError(error) )
   }
 
