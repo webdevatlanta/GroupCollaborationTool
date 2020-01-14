@@ -24,7 +24,8 @@ export default function() {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    firebase.db.collection("projects-test")
+    const collectionName = process.env.REACT_APP_PROJECTS_COLLECTION
+    firebase.db.collection(collectionName)
       .add({
         owner: session.uid,
         name,
