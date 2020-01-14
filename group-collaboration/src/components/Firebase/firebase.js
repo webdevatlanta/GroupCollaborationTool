@@ -28,10 +28,4 @@ export default class Firebase {
 
   doSignOut = () => this.auth.signOut()
 
-  doCreateProject = (user, name, description) =>
-    this.db.collection("projects").doc("test").set({
-      owner: user.uid,
-      name,
-      description
-    })
 }
