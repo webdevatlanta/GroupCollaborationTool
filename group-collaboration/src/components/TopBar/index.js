@@ -16,6 +16,7 @@ import { useHistory } from "react-router-dom";
 import * as ROUTES from '../../constants/routes';
 import {SessionContext} from '../Session'
 import {FirebaseContext} from '../Firebase'
+import NameTag from './nametag'
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -183,14 +184,10 @@ export default function PrimarySearchAppBar() {
           { !session &&
             <Button color="inherit" onClick={handleSignIn}>Login</Button>
           }
-          { session &&
-            <p><small>{session.email}</small></p>
-          }
+          { session && <NameTag/> }
         </div>
         <div className={classes.sectionMobile}>
-          { session &&
-            <p><small>{session.email}</small></p>
-          }
+          { session && <NameTag/> }
           <IconButton
             aria-label="show more"
             aria-controls={mobileMenuId}
@@ -213,18 +210,3 @@ export default function PrimarySearchAppBar() {
     </div>
   );
 }
-
-
-/*
-<AppBar position="static">
-  <Toolbar>
-    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-      <MenuIcon />
-    </IconButton>
-    <Typography variant="h6" className={classes.title}>
-      News
-    </Typography>
-    <Button color="inherit">Login</Button>
-  </Toolbar>
-</AppBar>
-*/
