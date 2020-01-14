@@ -30,10 +30,10 @@ https://www.evernote.com/shard/s441/sh/ba38be47-1b31-4190-ac4a-a424bbd394e5/e9b6
 
 ## Tasks to start working on:
 
-1. Overall design and mocking of the app
-2. Data design, how the projects will be stored and what technology
-3. User Login
-4. React App with basic functionality, including
-5. Deployment of the app on some host, or dockerize the app, maybe Digital ocean
-6. Form input of new projects and how to handle the input
+1. Overall design and mocking of the app(User Stories)
+2. Data design, how the projects will be stored and what technology.
+3. User Login ( Form ?) 
+4. React App with basic functionality, including (huh ?)
+5. Deployment of the app on some host, or dockerize the app, maybe Digital Ocean.
+6. Form input of new projects and how to handle the input.
 7. Add ability to test, lets start doing this from the start, unit test everything.
