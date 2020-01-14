@@ -1,13 +1,12 @@
 import React, {useState, useContext} from 'react'
 import {FirebaseContext} from '../Firebase'
-import {SessionContext} from '../Session'
 import {useHistory} from 'react-router-dom'
 import * as ROUTES from '../../constants/routes';
 
 export default function() {
   const history = useHistory()
   const firebase = useContext(FirebaseContext)
-  const session = useContext(SessionContext)
+
   const [name, setName] = useState("")
   const [type, setType] = useState("Open Source")
   const [description, setDescription] = useState("")
@@ -27,7 +26,7 @@ export default function() {
     const collectionName = process.env.REACT_APP_PROJECTS_COLLECTION
     firebase.db.collection(collectionName)
       .add({
-        owner: session.uid,
+        owner: firebase.auth.currentUser.uid,
         name,
         type,
         description

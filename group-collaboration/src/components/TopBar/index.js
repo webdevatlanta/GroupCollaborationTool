@@ -14,7 +14,6 @@ import Button from '@material-ui/core/Button';
 
 import { useHistory } from "react-router-dom";
 import * as ROUTES from '../../constants/routes';
-import {SessionContext} from '../Session'
 import {FirebaseContext} from '../Firebase'
 import NameTag from './nametag'
 
@@ -81,7 +80,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function PrimarySearchAppBar() {
-  const session = useContext(SessionContext)
   const firebase = useContext(FirebaseContext)
   const history = useHistory()
 
@@ -143,10 +141,10 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      { session &&
+      { firebase.auth.currentUser &&
         <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
       }
-      { !session &&
+      { !firebase.auth.currentUser &&
         <MenuItem onClick={handleSignIn}>Login</MenuItem>
       }
     </Menu>
@@ -181,13 +179,13 @@ export default function PrimarySearchAppBar() {
         </div>
         <div className={classes.grow} />
         <div className={classes.sectionDesktop}>
-          { !session &&
+          { !firebase.auth.currentUser &&
             <Button color="inherit" onClick={handleSignIn}>Login</Button>
           }
-          { session && <NameTag/> }
+          { firebase.auth.currentUser && <NameTag/> }
         </div>
         <div className={classes.sectionMobile}>
-          { session && <NameTag/> }
+          { firebase.auth.currentUser && <NameTag/> }
           <IconButton
             aria-label="show more"
             aria-controls={mobileMenuId}

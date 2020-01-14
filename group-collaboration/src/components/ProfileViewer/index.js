@@ -1,16 +1,14 @@
 import React, {useContext, useState, useEffect} from 'react'
 import {FirebaseContext} from '../Firebase'
-import {SessionContext} from '../Session'
 
 export default function(props) {
   const firebase = useContext(FirebaseContext)
-  const session = useContext(SessionContext)
   const { match: { params: { uid } } } = props
   const [profile, setProfile] = useState(null)
   const [error, setError] = useState(null)
 
   useEffect( () => {
-    if (session) {
+    if (firebase.auth.currentUser) {
       const collectionName = process.env.REACT_APP_PROFILES_COLLECTION
       firebase.db.collection(collectionName)
         .doc(uid)
@@ -21,9 +19,9 @@ export default function(props) {
     } else {
       setProfile(null)
     }
-  }, [uid, session, firebase.db])
+  }, [uid, firebase.auth.currentUser, firebase.db])
 
-  if (!session) {
+  if (!firebase.auth.currentUser) {
     return (
       <p>You need to be logged in to see this content.</p>
     )
