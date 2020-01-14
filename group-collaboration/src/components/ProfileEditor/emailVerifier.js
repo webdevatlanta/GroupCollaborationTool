@@ -1,29 +1,29 @@
 import React, {useContext, useState} from 'react'
-import {SessionContext} from '../Session'
+import {FirebaseContext} from '../Firebase'
 import Button from '@material-ui/core/Button'
 
 export default function() {
-  const session = useContext(SessionContext)
+  const firebase = useContext(FirebaseContext)
   const [verifying, setVerifying] = useState(false)
 
   const handleVerify = (event) => {
     event.preventDefault();
     setVerifying(true);
-    session.sendEmailVerification({
+    firebase.auth.currentUser.sendEmailVerification({
       url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
     });
   }
 
-  if(session.emailVerified) {
+  if(firebase.auth.currentUser.emailVerified) {
     return (
       <div>
-        {session.email} &#x2714;
+        {firebase.auth.currentUser.email} &#x2714;
       </div>
     )
   } else {
     return (
       <div>
-        {session.email}
+        {firebase.auth.currentUser.email}
         {verifying &&
           <Button color="secondary" >Verifying...</Button>
         }

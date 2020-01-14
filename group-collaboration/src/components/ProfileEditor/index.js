@@ -1,6 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
-import {SessionContext} from '../Session'
 import {FirebaseContext} from '../Firebase'
 import EmailVerifier from './emailVerifier'
 import NameEditor from './nameEditor'
@@ -10,29 +9,28 @@ import * as ROUTES from '../../constants/routes';
 
 export default function() {
   const history = useHistory()
-  const session = useContext(SessionContext)
   const firebase = useContext(FirebaseContext)
   const [viewerLink, setViewerLink] = useState("")
 
   useEffect( () => {
-    if (session) {
-      const link = ROUTES.VIEW_PROFILE.replace(":uid", session.uid)
+    if (firebase.auth.currentUser) {
+      const link = ROUTES.VIEW_PROFILE.replace(":uid", firebase.auth.currentUser.uid)
       setViewerLink(link)
     } else {
       setViewerLink(null)
     }
-  }, [session])
+  }, [firebase.auth.currentUser])
 
   const handleLogout = () => {
     firebase.doSignOut()
     history.push(ROUTES.LANDING)
   }
 
-  if (session) {
+  if (firebase.auth.currentUser) {
     return (
       <div>
         <h1>Profile</h1>
-        { session &&
+        { firebase.auth.currentUser &&
           <>
             <EmailVerifier/>
             <NameEditor/>

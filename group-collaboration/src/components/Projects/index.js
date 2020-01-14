@@ -2,16 +2,14 @@ import React, {useContext, useState, useEffect} from 'react';
 import './styles.css';
 import {Paper} from '@material-ui/core'
 import {FirebaseContext} from '../Firebase'
-import {SessionContext} from '../Session'
 
 export default function() {
   const firebase = useContext(FirebaseContext)
-  const session = useContext(SessionContext)
   const [projects, setProjects] = useState([])
   const [error, setError] = useState("")
 
   useEffect( () => {
-    if (session) {
+    if (firebase.auth.currentUser) {
       const collectionName = process.env.REACT_APP_PROJECTS_COLLECTION
       firebase.db.collection(collectionName)
         .get()
@@ -23,7 +21,7 @@ export default function() {
     } else {
       setProjects([]);
     }
-  }, [session, firebase.db])
+  }, [firebase.auth.currentUser, firebase.db])
 
   return (
     <div style={{marginTop: '30px'}}>

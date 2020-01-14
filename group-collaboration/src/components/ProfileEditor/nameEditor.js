@@ -1,25 +1,23 @@
 import React, {useState, useContext, useEffect} from 'react'
-import {SessionContext} from '../Session'
 import {FirebaseContext} from '../Firebase'
 
 export default function() {
   const firebase = useContext(FirebaseContext)
-  const session = useContext(SessionContext)
-  const [displayName, setDisplayName] = useState(session.displayName)
+  const [displayName, setDisplayName] = useState(firebase.auth.currentUser.displayName)
   const [validated, setValidated] = useState(false)
 
   const [error, setError] = useState("")
 
   useEffect( () => {
-    setDisplayName(session.displayName)
-  }, [session.displayName])
+    setDisplayName(firebase.auth.currentUser.displayName)
+  }, [firebase.auth.currentUser.displayName])
 
   useEffect( () => {
     setValidated(
       displayName &&
       displayName.length > 0 &&
-      displayName !== session.displayName)
-  }, [displayName, session.displayName])
+      displayName !== firebase.auth.currentUser.displayName)
+  }, [displayName, firebase.auth.currentUser.displayName])
 
   // Copies the User displayName field into the adjunct profile document.
   const syncProfile = (user) => {
@@ -33,10 +31,10 @@ export default function() {
   const onSubmit = (event) => {
     event.preventDefault()
 
-    session.updateProfile({ displayName })
+    firebase.auth.currentUser.updateProfile({ displayName })
       .then( () => setValidated(false), // disables update button
         (error) => setError(error) )
-      .then( () => syncProfile(session))
+      .then( () => syncProfile(firebase.auth.currentUser))
   }
 
   return (
