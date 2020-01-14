@@ -7,45 +7,27 @@ import {SessionContext} from '../Session'
 export default function() {
   const firebase = useContext(FirebaseContext)
   const session = useContext(SessionContext)
-  // eslint-disable-next-line
   const [projects, setProjects] = useState([])
   const [error, setError] = useState("")
 
   useEffect( () => {
     if (session) {
-      const unsubscribe = firebase.db.collection("projects-test")
-      .get()
-      .then(querySnapshot => {
-        const data = querySnapshot.docs.map(doc => doc.data());
-        console.log(data);
-        setProjects(data);
-      })
-      .catch( err => setError(err) )
-      return () => unsubscribe()
+      firebase.db.collection("projects-test")
+        .get()
+        .then( querySnapshot => {
+          const data = querySnapshot.docs.map(doc => doc.data());
+          setProjects(data);
+        })
+        .catch( err => setError(err) )
     } else {
       setProjects([]);
     }
   }, [session, firebase.db])
 
-  const addProject = (owner, name, type, description) => {
-    firebase.db.collection("projects-test")
-      .add({
-        owner: owner.uid,
-        name,
-        type,
-        description
-      })
-      .then(function() {
-        console.log("Document successfully written!");
-      })
-      .catch( err => setError(err) )
-  }
-
   return (
     <div style={{marginTop: '30px'}}>
       <div>
         Group Collaboration
-        <button onClick={ e => addProject(session, "1","2","3")}>add</button> 
         { error && <p>{error.message}</p> }
       </div>
       <Paper className="projects-container">
