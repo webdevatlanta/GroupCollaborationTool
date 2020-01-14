@@ -23,7 +23,10 @@ export default function() {
     firebase.db
       .collection(process.env.REACT_APP_PROFILES_COLLECTION)
       .doc(user.uid)
-      .set({ displayName: user.email.split('@')[0] })
+      .set( {
+        displayName: user.email.split('@')[0],
+        description: "",
+      })
       .catch( error => setError(error) )
 
   const onSubmit = (event) => {
