@@ -38,7 +38,16 @@ export default class Firebase {
     this.db
       .collection(process.env.REACT_APP_PROJECTS_COLLECTION)
       .get()
-      .then( (snapshot) => snapshot.docs.map(doc => doc.data()))
+      .then( (snapshot) => snapshot.docs.map(doc => {
+        return {...doc.data(), id: doc.id}
+      }))
+
+  getProject = (id) =>
+    this.db
+      .collection(process.env.REACT_APP_PROJECTS_COLLECTION)
+      .doc(id)
+      .get()
+      .then((snapshot) => snapshot.data())
 
   createProject = ({owner, name, type, description}) =>
     this.db
