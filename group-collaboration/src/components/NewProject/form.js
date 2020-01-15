@@ -7,6 +7,7 @@ export default function() {
   const history = useHistory()
   const firebase = useContext(FirebaseContext)
 
+  const owner = firebase.auth.currentUser.uid
   const [name, setName] = useState("")
   const [type, setType] = useState("Open Source")
   const [description, setDescription] = useState("")
@@ -23,17 +24,8 @@ export default function() {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    const collectionName = process.env.REACT_APP_PROJECTS_COLLECTION
-    firebase.db.collection(collectionName)
-      .add({
-        owner: firebase.auth.currentUser.uid,
-        name,
-        type,
-        description
-      })
-      .then( (data) => {
-        history.push(ROUTES.LANDING);
-      })
+    firebase.createProject({owner, name, type, description})
+      .then( () => history.push(ROUTES.LANDING) )
       .catch( error => setError(error) )
   }
 

@@ -34,4 +34,19 @@ export default class Firebase {
 
   doSignOut = () => this.auth.signOut()
 
+  getProjects = () =>
+    this.db
+      .collection(process.env.REACT_APP_PROJECTS_COLLECTION)
+      .get()
+      .then( (snapshot) => snapshot.docs.map(doc => doc.data()))
+
+  createProject = ({owner, name, type, description}) =>
+    this.db
+      .collection(process.env.REACT_APP_PROJECTS_COLLECTION)
+      .add({
+        owner,
+        name,
+        type,
+        description
+      })
 }
