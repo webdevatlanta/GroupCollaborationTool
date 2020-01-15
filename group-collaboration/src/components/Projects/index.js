@@ -9,19 +9,14 @@ export default function() {
   const [error, setError] = useState("")
 
   useEffect( () => {
-    if (firebase.auth.currentUser) {
-      const collectionName = process.env.REACT_APP_PROJECTS_COLLECTION
-      firebase.db.collection(collectionName)
-        .get()
-        .then( querySnapshot => {
-          const data = querySnapshot.docs.map(doc => doc.data());
-          setProjects(data);
-        })
-        .catch( err => setError(err) )
+    if(firebase.auth.currentUser) {
+      firebase.doGetProjects()
+        .then( setProjects )
+        .catch( setError )
     } else {
       setProjects([]);
     }
-  }, [firebase.auth.currentUser, firebase.db])
+  }, [firebase])
 
   return (
     <div style={{marginTop: '30px'}}>
