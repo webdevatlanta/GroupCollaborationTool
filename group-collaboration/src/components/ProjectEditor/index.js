@@ -1,4 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react'
+import EditorForm from './form'
 import {FirebaseContext} from '../Firebase'
 
 export default function(props) {
@@ -16,17 +17,15 @@ export default function(props) {
   if (!project) {
   return (
     <div>
-      <h1>Project Viewer</h1>
+      <h1>Project Editor</h1>
       { error && <p>{error.message}</p> }
     </div>
   )
   } else {
     return (
       <div>
-        <h1>Project Viewer</h1>
-        <h1>{project.name}</h1>
-        <p>{project.type}</p>
-        <p>{project.description}</p>
+        <h1>Project Editor</h1>
+        <EditorForm projectId={id} project={project} />
         { error && <p>{error.message}</p> }
       </div>
     )

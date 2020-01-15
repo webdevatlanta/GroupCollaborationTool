@@ -1,10 +1,13 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {Link} from 'react-router-dom'
 import {Paper} from '@material-ui/core'
+import {FirebaseContext} from '../Firebase'
 import * as ROUTES from '../../constants/routes'
 
 export default function(props) {
-  const projectLink = (id) => ROUTES.VIEW_PROJECT.replace(':id', id)
+  const firebase = useContext(FirebaseContext)
+  const viewerLink = (id) => ROUTES.VIEW_PROJECT.replace(':id', id)
+  const editorLink = (id) => ROUTES.EDIT_PROJECT.replace(':id', id)
 
   return (
     <Paper className="projects-container">
@@ -35,7 +38,13 @@ export default function(props) {
               {project.description}
             </div>
             <div className="project-item">
-              <Link to={ projectLink(project.id) }>details</Link>
+              <Link to={ viewerLink(project.id) }>details</Link>
+              { (project.owner === firebase.auth.currentUser.uid) &&
+                <>
+                  &nbsp;|&nbsp;
+                  <Link to={ editorLink(project.id) }>edit</Link>
+                </>
+              }
             </div>
           </div>
         )

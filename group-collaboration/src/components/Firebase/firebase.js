@@ -58,4 +58,10 @@ export default class Firebase {
         type,
         description
       })
+
+  updateProject = (id, fields) =>
+    this.db
+      .collection(process.env.REACT_APP_PROJECTS_COLLECTION)
+      .doc(id)
+      .update(fields)
 }
