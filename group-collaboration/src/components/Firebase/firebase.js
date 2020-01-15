@@ -34,7 +34,7 @@ export default class Firebase {
 
   doSignOut = () => this.auth.signOut()
 
-  doGetProjects = () =>
+  getProjects = () =>
     this.db
       .collection(process.env.REACT_APP_PROJECTS_COLLECTION)
       .get()
