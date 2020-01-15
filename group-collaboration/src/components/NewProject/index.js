@@ -5,7 +5,7 @@ export default function() {
   return(
     <>
       <h1>Create New Project</h1>
-        <NewProjectForm/>
+      <NewProjectForm/>
     </>
   )
 }
