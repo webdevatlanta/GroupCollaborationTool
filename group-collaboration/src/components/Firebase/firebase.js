@@ -64,4 +64,16 @@ export default class Firebase {
       .collection(process.env.REACT_APP_PROJECTS_COLLECTION)
       .doc(id)
       .update(fields)
+
+  getProfile = (id) =>
+    this.db.collection(process.env.REACT_APP_PROFILES_COLLECTION)
+      .doc(id)
+      .get()
+      .then((snapshot) => snapshot.data())
+
+  updateProfile = (id, fields) =>
+    this.db
+      .collection(process.env.REACT_APP_PROFILES_COLLECTION)
+      .doc(id)
+      .update(fields)
 }

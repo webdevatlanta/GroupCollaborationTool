@@ -12,14 +12,11 @@ export default function() {
   const [error, setError] = useState("")
 
   useEffect( () => {
-    const collectionName = process.env.REACT_APP_PROFILES_COLLECTION
-    firebase.db.collection(collectionName)
-      .doc(user.uid)
-      .get()
-      .then((snapshot) => snapshot.data())
-      .then((data) => setDescription(data.description))
-      .catch( err => setError(err) )
-  }, [user.uid, firebase.db])
+    firebase
+      .getProfile(user.uid)
+      .then(({description}) => setDescription(description))
+      .catch(setError)
+  }, [user.uid, firebase])
 
   const onChange = (event) => {
     setDescription(event.target.value)
@@ -31,10 +28,8 @@ export default function() {
 
     setSaveable(false);
 
-    const collectionName = process.env.REACT_APP_PROFILES_COLLECTION
-    firebase.db.collection(collectionName)
-      .doc(user.uid)
-      .update({ description })
+    firebase
+      .updateProfile(user.uid, {description})
       .catch( error => setError(error) )
   }
 
