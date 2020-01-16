@@ -9,13 +9,9 @@ export default function() {
   const [error, setError] = useState("")
 
   useEffect( () => {
-    if(firebase.auth.currentUser) {
-      firebase.getProjects()
-        .then( setProjects )
-        .catch( setError )
-    } else {
-      setProjects([]);
-    }
+    firebase.getProjects()
+      .then( setProjects )
+      .catch( setError )
   }, [firebase])
 
   return (

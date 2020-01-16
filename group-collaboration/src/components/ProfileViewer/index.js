@@ -3,12 +3,15 @@ import {FirebaseContext} from '../Firebase'
 
 export default function(props) {
   const firebase = useContext(FirebaseContext)
+
   const { match: { params: { uid } } } = props
   const [profile, setProfile] = useState(null)
   const [error, setError] = useState(null)
 
   useEffect( () => {
-    if (firebase.auth.currentUser) {
+      if(!uid)
+        return
+
       const collectionName = process.env.REACT_APP_PROFILES_COLLECTION
       firebase.db.collection(collectionName)
         .doc(uid)
@@ -16,16 +19,7 @@ export default function(props) {
         .then((snapshot) => snapshot.data())
         .then((data) => setProfile(data))
         .catch( err => setError(err) )
-    } else {
-      setProfile(null)
-    }
   }, [uid, firebase.auth.currentUser, firebase.db])
-
-  if (!firebase.auth.currentUser) {
-    return (
-      <p>You need to be logged in to see this content.</p>
-    )
-  }
 
   return (
     <div>
