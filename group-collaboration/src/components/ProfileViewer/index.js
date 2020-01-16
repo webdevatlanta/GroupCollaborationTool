@@ -9,17 +9,11 @@ export default function(props) {
   const [error, setError] = useState(null)
 
   useEffect( () => {
-      if(!uid)
-        return
-
-      const collectionName = process.env.REACT_APP_PROFILES_COLLECTION
-      firebase.db.collection(collectionName)
-        .doc(uid)
-        .get()
-        .then((snapshot) => snapshot.data())
-        .then((data) => setProfile(data))
-        .catch( err => setError(err) )
-  }, [uid, firebase.auth.currentUser, firebase.db])
+    firebase
+      .getProfile(uid)
+      .then(setProfile)
+      .catch(setError)
+  }, [uid, firebase])
 
   return (
     <div>

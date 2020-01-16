@@ -21,20 +21,19 @@ export default function() {
 
   // Copies the User displayName field into the adjunct profile document.
   const syncProfile = (user) => {
-    const collectionName = process.env.REACT_APP_PROFILES_COLLECTION
-    firebase.db.collection(collectionName)
-      .doc(user.uid)
-      .update({ displayName: user.displayName })
-      .catch( error => setError(error) )
+    firebase
+      .updateProfile(user.uid, {displayName: user.displayName})
+      .catch(setError)
   }
 
   const onSubmit = (event) => {
     event.preventDefault()
 
+    setValidated(false)
+
     firebase.auth.currentUser.updateProfile({ displayName })
-      .then( () => setValidated(false), // disables update button
-        (error) => setError(error) )
-      .then( () => syncProfile(firebase.auth.currentUser))
+      .then(() => syncProfile(firebase.auth.currentUser))
+      .catch(setError)
   }
 
   return (
