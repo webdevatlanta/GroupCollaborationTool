@@ -1,25 +1,25 @@
 import React, {useState, useEffect, useContext} from 'react'
 import {FirebaseContext} from '../Firebase'
+import {SessionContext} from '../Session'
 
 export default function() {
   const firebase = useContext(FirebaseContext)
+  const session = useContext(SessionContext)
+
+  const [user] = useState(session.user)
   const [description, setDescription] = useState("")
   const [saveable, setSaveable] = useState(false)
   const [error, setError] = useState("")
 
   useEffect( () => {
-    if (firebase.auth.currentUser) {
-      const collectionName = process.env.REACT_APP_PROFILES_COLLECTION
-      firebase.db.collection(collectionName)
-        .doc(firebase.auth.currentUser.uid)
-        .get()
-        .then((snapshot) => snapshot.data())
-        .then((data) => setDescription(data.description))
-        .catch( err => setError(err) )
-    } else {
-      setDescription("");
-    }
-  }, [firebase.auth.currentUser, firebase.db])
+    const collectionName = process.env.REACT_APP_PROFILES_COLLECTION
+    firebase.db.collection(collectionName)
+      .doc(user.uid)
+      .get()
+      .then((snapshot) => snapshot.data())
+      .then((data) => setDescription(data.description))
+      .catch( err => setError(err) )
+  }, [user.uid, firebase.db])
 
   const onChange = (event) => {
     setDescription(event.target.value)
@@ -33,7 +33,7 @@ export default function() {
 
     const collectionName = process.env.REACT_APP_PROFILES_COLLECTION
     firebase.db.collection(collectionName)
-      .doc(firebase.auth.currentUser.uid)
+      .doc(user.uid)
       .update({ description })
       .catch( error => setError(error) )
   }

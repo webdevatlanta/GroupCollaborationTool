@@ -14,12 +14,12 @@ export default function(props) {
   }, [id, firebase])
 
   if (!project) {
-  return (
-    <div>
-      <h1>Project Viewer</h1>
-      { error && <p>{error.message}</p> }
-    </div>
-  )
+    return (
+      <div>
+        <h1>Project Viewer</h1>
+        { error && <p>{error.message}</p> }
+      </div>
+    )
   } else {
     return (
       <div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext, useState, useEffect} from "react";
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import TopBar from './components/TopBar';
 import SignUpPage from './components/SignUp'
@@ -9,13 +9,25 @@ import LandingPage from './components/Landing'
 import NewProjectPage from './components/NewProject'
 import ProjectViewer from './components/ProjectViewer'
 import ProjectEditor from './components/ProjectEditor'
+import {SessionContext} from './components/Session'
+import {FirebaseContext} from './components/Firebase'
 import * as ROUTES from './constants/routes'
 
 import "./App.css";
 
 export default function() {
+  const firebase = useContext(FirebaseContext)
+  const [session, setSession] = useState({user:firebase.auth.currentUser})
+
+  useEffect(() =>{
+    const unlisten = firebase.auth
+      .onAuthStateChanged(user => setSession({user}))
+
+    return () => unlisten();
+  }, [firebase.auth]);
 
   return (
+    <SessionContext.Provider value={session}>
     <div>
       <Router>
         <div className="top-bar">
@@ -33,5 +45,6 @@ export default function() {
         </div>
       </Router>
     </div>
+    </SessionContext.Provider>
   );
 }

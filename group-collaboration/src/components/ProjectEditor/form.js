@@ -1,13 +1,15 @@
 import React, {useState, useContext} from 'react'
 import {FirebaseContext} from '../Firebase'
+import {SessionContext} from '../Session'
 import {useHistory} from 'react-router-dom'
 import * as ROUTES from '../../constants/routes';
 
 export default function(params) {
   const history = useHistory()
   const firebase = useContext(FirebaseContext)
+  const session = useContext(SessionContext)
 
-  const owner = firebase.auth.currentUser.uid
+  const [owner] = useState(session.user.uid)
   const [name, setName] = useState(params.project.name)
   const [type, setType] = useState(params.project.type)
   const [description, setDescription] = useState(params.project.description)
