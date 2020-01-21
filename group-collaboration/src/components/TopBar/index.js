@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import clsx from "clsx";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -11,6 +12,7 @@ import Button from "@material-ui/core/Button";
 
 import { useHistory } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
+import * as STYLES from "../../constants/styles";
 import { SessionContext } from "../Session";
 import NameTag from "./nametag";
 
@@ -62,21 +64,23 @@ const useStyles = makeStyles(theme => ({
       width: 200
     }
   },
-  sectionDesktop: {
-    display: "none",
-    [theme.breakpoints.up("md")]: {
-      display: "flex"
-    }
+  appBar: {
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    })
   },
-  sectionMobile: {
-    display: "flex",
-    [theme.breakpoints.up("md")]: {
-      display: "none"
-    }
+  appBarShift: {
+    width: `calc(100% - ${STYLES.DRAWER_WIDTH}px)`,
+    marginLeft: STYLES.DRAWER_WIDTH,
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen
+    })
   }
 }));
 
-export default function PrimarySearchAppBar() {
+export default function(props) {
   const session = useContext(SessionContext);
   const history = useHistory();
 
@@ -86,14 +90,24 @@ export default function PrimarySearchAppBar() {
     history.push(ROUTES.SIGN_IN);
   };
 
+  const handleDrawerOpen = () => {
+    props.setDrawerOpen(!props.drawerOpen);
+  };
+
   const renderAppBar = (
-    <AppBar position="static">
+    <AppBar
+      position="static"
+      className={clsx(classes.appBar, {
+        [classes.appBarShift]: props.drawerOpen
+      })}
+    >
       <Toolbar>
         <IconButton
           edge="start"
           className={classes.menuButton}
           color="inherit"
           aria-label="open drawer"
+          onClick={handleDrawerOpen}
         >
           <MenuIcon />
         </IconButton>
