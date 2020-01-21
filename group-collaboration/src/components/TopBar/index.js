@@ -5,16 +5,12 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 
 import { useHistory } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
-import { FirebaseContext } from "../Firebase";
 import { SessionContext } from "../Session";
 import NameTag from "./nametag";
 
@@ -81,72 +77,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function PrimarySearchAppBar() {
-  const firebase = useContext(FirebaseContext);
   const session = useContext(SessionContext);
   const history = useHistory();
 
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = event => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
 
   const handleSignIn = event => {
-    handleMenuClose();
     history.push(ROUTES.SIGN_IN);
   };
-
-  const handleSignOut = event => {
-    handleMenuClose();
-    firebase.doSignOut();
-    history.push(ROUTES.LANDING);
-  };
-
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      {session.user && <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>}
-      {!session.user && <MenuItem onClick={handleSignIn}>Login</MenuItem>}
-    </Menu>
-  );
 
   const renderAppBar = (
     <AppBar position="static">
@@ -176,7 +114,7 @@ export default function PrimarySearchAppBar() {
           />
         </div>
         <div className={classes.grow} />
-        <div className={classes.sectionDesktop}>
+        <div>
           {!session.user && (
             <Button color="inherit" onClick={handleSignIn}>
               Login
@@ -184,27 +122,9 @@ export default function PrimarySearchAppBar() {
           )}
           {session.user && <NameTag />}
         </div>
-        <div className={classes.sectionMobile}>
-          {session.user && <NameTag />}
-          <IconButton
-            aria-label="show more"
-            aria-controls={mobileMenuId}
-            aria-haspopup="true"
-            onClick={handleMobileMenuOpen}
-            color="inherit"
-          >
-            <MoreIcon />
-          </IconButton>
-        </div>
       </Toolbar>
     </AppBar>
   );
 
-  return (
-    <div className={classes.grow}>
-      {renderAppBar}
-      {renderMobileMenu}
-      {renderMenu}
-    </div>
-  );
+  return <div className={classes.grow}>{renderAppBar}</div>;
 }
