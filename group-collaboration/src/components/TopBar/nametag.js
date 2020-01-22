@@ -1,27 +1,31 @@
-import React, {useContext, useState, useEffect} from 'react'
-import {useHistory} from 'react-router-dom'
-import Button from '@material-ui/core/Button'
-import {FirebaseContext} from '../Firebase'
-import * as ROUTES from '../../constants/routes'
+import React, { useContext, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import { SessionContext } from "../Session";
+import * as ROUTES from "../../constants/routes";
 
 export default function() {
-  const firebase = useContext(FirebaseContext)
+  const session = useContext(SessionContext);
   const history = useHistory();
-  const [name, setName] = useState("")
+  const [name, setName] = useState("");
 
-  useEffect( () => {
-    if (firebase.auth.currentUser.displayName) {
-      setName(firebase.auth.currentUser.displayName)
-    } else {
-      setName(firebase.auth.currentUser.email)
+  useEffect(() => {
+    if (session) {
+      if (session.displayName) {
+        setName(session.displayName);
+      } else {
+        setName(session.email);
+      }
     }
-  }, [firebase.auth.currentUser])
+  }, [session]);
 
   const openProfile = event => {
-    history.push(ROUTES.EDIT_PROFILE)
-  }
+    history.push(ROUTES.EDIT_PROFILE);
+  };
 
   return (
-    <Button color="inherit" onClick={openProfile}>{name}</Button>
-  )
+    <Button color="inherit" onClick={openProfile}>
+      {name}
+    </Button>
+  );
 }
