@@ -129,12 +129,12 @@ export default function(props) {
         </div>
         <div className={classes.grow} />
         <div>
-          {!session.user && (
+          {!session && (
             <Button color="inherit" onClick={handleSignIn}>
               Sign In
             </Button>
           )}
-          {session.user && <NameTag />}
+          {session && <NameTag />}
         </div>
       </Toolbar>
     </AppBar>
