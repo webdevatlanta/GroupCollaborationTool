@@ -21,14 +21,14 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
+    transition: ".3s"
   },
   title: {
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "block"
-    },
-    
+    }
   },
   titleLink: {
     color: theme.palette.common.white,
@@ -113,11 +113,14 @@ export default function(props) {
           color="inherit"
           aria-label="open drawer"
           onClick={handleDrawerOpen}
+          style={props.drawerOpen ? { opacity: 0 } : { opacity: 1 }}
         >
           <MenuIcon />
         </IconButton>
         <Typography className={classes.title} variant="h6" noWrap>
-          <Link to={ROUTES.LANDING} className={classes.titleLink}>Groopa</Link>
+          <Link to={ROUTES.LANDING} className={classes.titleLink}>
+            Groopa
+          </Link>
         </Typography>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
