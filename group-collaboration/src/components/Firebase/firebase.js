@@ -51,12 +51,13 @@ export default class Firebase {
       .get()
       .then(snapshot => snapshot.data());
 
-  createProject = ({ owner, name, type, description }) =>
+  createProject = ({ owner, name, type, description, repoLink }) =>
     this.db.collection(process.env.REACT_APP_PROJECTS_COLLECTION).add({
       owner,
       name,
       type,
-      description
+      description, 
+      repoLink
     });
 
   updateProject = (id, fields) =>
