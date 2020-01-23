@@ -7,6 +7,10 @@ const ForgotPasswordFrom = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState("");
 
+  const validate = () => {
+    return email.length > 0;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -30,7 +34,17 @@ const ForgotPasswordFrom = () => {
         onChange={(e) => setEmail(e.target.value)}
       />
       <br />
-      <input type="submit" value="Send reset instructions"/>
+      <button
+        type="submit"
+        className={
+            validate()
+              ? "signin-form-submit validated"
+              : "signin-form-submit disabled"
+          }
+        disabled={!validate()}
+      >
+        Send reset instructions
+      </button>
       <br/>
       { successMessage && <p>{successMessage}</p>}
       { error && <p>{error.message}</p>}
