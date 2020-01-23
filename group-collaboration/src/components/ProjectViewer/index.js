@@ -27,6 +27,7 @@ export default function(props) {
         <h1>{project.name}</h1>
         <p>{project.type}</p>
         <p>{project.description}</p>
+        <p>{project.repoLink}</p>
         { error && <p>{error.message}</p> }
       </div>
     )

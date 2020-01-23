@@ -13,6 +13,7 @@ export default function(params) {
   const [name, setName] = useState(params.project.name)
   const [type, setType] = useState(params.project.type)
   const [description, setDescription] = useState(params.project.description)
+  const [repoLink, setRepoLink] = useState(params.project.repoLink) 
   const [error, setError] = useState("")
 
   const validate = () => {
@@ -26,7 +27,7 @@ export default function(params) {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    firebase.updateProject(params.projectId, {owner, name, type, description})
+    firebase.updateProject(params.projectId, {owner, name, type, description, repoLink})
       .then( () => history.push(ROUTES.LANDING) )
       .catch( error => setError(error) )
   }
@@ -54,6 +55,12 @@ export default function(params) {
           onChange={e => setDescription(e.target.value)}
         />
         <br/>
+        <input
+          type="text"
+          placeholder="repository link"
+          value={repoLink}
+          onChange={e => setRepoLink(e.target.value)}
+        />
         <input type="submit" value="Update" disabled={!validate()} />
 
         {error && <p>{error.message}</p>}

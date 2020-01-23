@@ -13,6 +13,7 @@ export default function() {
   const [name, setName] = useState("")
   const [type, setType] = useState("Open Source")
   const [description, setDescription] = useState("")
+  const [repoLink, setRepoLink] = useState("")
   const [error, setError] = useState("")
 
   const validate = () => {
@@ -26,7 +27,7 @@ export default function() {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    firebase.createProject({owner, name, type, description})
+    firebase.createProject({owner, name, type, description, repoLink})
       .then( () => history.push(ROUTES.LANDING) )
       .catch( error => setError(error) )
   }
@@ -52,6 +53,13 @@ export default function() {
           placeholder="project description"
           value={description}
           onChange={e => setDescription(e.target.value)}
+        />
+        <br/>
+        <input
+          type="text"
+          placeholder="repository link"
+          value={repoLink}
+          onChange={e => setRepoLink(e.target.value)}
         />
         <br/>
         <input type="submit" value="Create" disabled={!validate()} />
