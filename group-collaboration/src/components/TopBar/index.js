@@ -10,7 +10,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import * as STYLES from "../../constants/styles";
 import { SessionContext } from "../Session";
@@ -27,7 +27,12 @@ const useStyles = makeStyles(theme => ({
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "block"
-    }
+    },
+    
+  },
+  titleLink: {
+    color: theme.palette.common.white,
+    textDecoration: "none"
   },
   search: {
     position: "relative",
@@ -112,7 +117,7 @@ export default function(props) {
           <MenuIcon />
         </IconButton>
         <Typography className={classes.title} variant="h6" noWrap>
-          Groopa
+          <Link to={ROUTES.LANDING} className={classes.titleLink}>Groopa</Link>
         </Typography>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
