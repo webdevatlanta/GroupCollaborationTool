@@ -34,6 +34,8 @@ export default class Firebase {
 
   doSignOut = () => this.auth.signOut();
 
+  sendPasswordResetEmail = (email) => this.auth.sendPasswordResetEmail(email)
+
   getProjects = () =>
     this.db
       .collection(process.env.REACT_APP_PROJECTS_COLLECTION)
