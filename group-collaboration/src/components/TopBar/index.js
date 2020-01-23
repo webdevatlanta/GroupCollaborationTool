@@ -131,7 +131,7 @@ export default function(props) {
         <div>
           {!session.user && (
             <Button color="inherit" onClick={handleSignIn}>
-              Login
+              Sign In
             </Button>
           )}
           {session.user && <NameTag />}
