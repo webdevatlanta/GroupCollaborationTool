@@ -1,0 +1,77 @@
+.new-project-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  background-color: rgb(200, 199, 216);
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 16px;
+}
+
+.flex-row {
+  display: flex;
+}
+
+.new-project-form select,
+.new-project-form textarea,
+.new-project-form input {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.new-project-form select,
+.new-project-form textarea,
+.new-project-form input:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.project-name {
+  flex-basis: 70%;
+  flex-shrink: 2;
+  min-width: 0;
+  margin-right: 10px;
+}
+
+.type-select {
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.new-project-submit {
+  width: 50%;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  font-size: 16px;
+}
+
+.new-project-submit.validated {
+  background-color: rgb(78, 89, 240);
+  color: #fff;
+  cursor: pointer;
+
+  transition: 0.5s;
+}
+
+.new-project-submit.validated:hover {
+  background-color: rgb(50, 56, 139);
+  color: #fff;
+  cursor: pointer;
+  /* border-radius: 5px; */
+}
+
+@media (max-width: 570px) {
+  .flex-row {
+    flex-direction: column;
+  }
+
+  .project-name {
+    margin-right: 0;
+  }
+
+  .new-project-submit {
+    width: 100%;
+  }
+}

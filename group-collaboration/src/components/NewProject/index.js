@@ -1,11 +1,12 @@
-import React from 'react'
-import NewProjectForm from './form'
+import React from "react";
+import NewProjectForm from "./form";
+import "./style.css";
 
 export default function() {
-  return(
-    <>
+  return (
+    <div>
       <h1>Create New Project</h1>
-      <NewProjectForm/>
-    </>
-  )
+      <NewProjectForm />
+    </div>
+  );
 }
