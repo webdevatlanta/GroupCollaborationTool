@@ -8,8 +8,7 @@ export default function() {
   const history = useHistory()
   const firebase = useContext(FirebaseContext)
   const session = useContext(SessionContext)
-
-  const [owner] = useState(session.user.uid)
+  const [owner] = useState(session.uid)
   const [name, setName] = useState("")
   const [type, setType] = useState("Open Source")
   const [description, setDescription] = useState("")

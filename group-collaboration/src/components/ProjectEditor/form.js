@@ -9,7 +9,7 @@ export default function(params) {
   const firebase = useContext(FirebaseContext)
   const session = useContext(SessionContext)
 
-  const [owner] = useState(session.user.uid)
+  const [owner] = useState(session.uid)
   const [name, setName] = useState(params.project.name)
   const [type, setType] = useState(params.project.type)
   const [description, setDescription] = useState(params.project.description)
