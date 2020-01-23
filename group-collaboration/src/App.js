@@ -51,7 +51,7 @@ export default function() {
 
   useEffect(() => {
     const unlisten = firebase.auth.onAuthStateChanged(user =>
-      setSession({ user })
+      setSession({ displayName: user.displayName, email: user.email, uid: user.uid })
     );
 
     return () => unlisten();

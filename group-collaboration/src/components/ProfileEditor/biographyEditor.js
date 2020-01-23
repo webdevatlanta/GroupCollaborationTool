@@ -6,7 +6,7 @@ export default function() {
   const firebase = useContext(FirebaseContext)
   const session = useContext(SessionContext)
 
-  const [user] = useState(session.user)
+  const [user] = useState(session)
   const [description, setDescription] = useState("")
   const [saveable, setSaveable] = useState(false)
   const [error, setError] = useState("")
