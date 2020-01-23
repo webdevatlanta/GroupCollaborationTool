@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import TopBar from "./components/TopBar";
 import SignUpPage from "./components/SignUp";
 import SignInPage from "./components/SignIn";
+import ForgotPasswordPage from "./components/ForgotPassword";
 import ProfileViewer from "./components/ProfileViewer";
 import ProfileEditor from "./components/ProfileEditor";
 import LandingPage from "./components/Landing";
@@ -71,6 +72,7 @@ export default function() {
           >
             <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
             <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+            <Route path={ROUTES.FORGOT_PASSWORD} component={ForgotPasswordPage} />
             <Route exact path={ROUTES.EDIT_PROFILE} component={ProfileEditor} />
             <Route path={ROUTES.VIEW_PROFILE} component={ProfileViewer} />
             <Route exact path={ROUTES.NEW_PROJECT} component={NewProjectPage} />
