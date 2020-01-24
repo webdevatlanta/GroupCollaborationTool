@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    transition: ".3s"
+    transition: "3s"
   },
   title: {
     display: "none",
@@ -113,7 +113,7 @@ export default function(props) {
           color="inherit"
           aria-label="open drawer"
           onClick={handleDrawerOpen}
-          style={props.drawerOpen ? { opacity: 0 } : { opacity: 1 }}
+          style={props.drawerOpen ? { display: "none" } : { display: "block" }}
         >
           <MenuIcon />
         </IconButton>
