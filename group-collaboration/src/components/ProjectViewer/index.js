@@ -1,5 +1,7 @@
 import React, {useContext, useState, useEffect} from 'react'
 import {FirebaseContext} from '../Firebase'
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 export default function(props) {
   const [error, setError] = useState(null)
@@ -22,14 +24,21 @@ export default function(props) {
     )
   } else {
     return (
-      <div>
-        <h1>Project Viewer</h1>
-        <h1>{project.name}</h1>
-        <p>{project.type}</p>
-        <p>{project.description}</p>
-        <p>{project.repoLink}</p>
-        { error && <p>{error.message}</p> }
-      </div>
+      <Typography component="div">
+        <Box component="h1">Project Viewer</Box>
+        <Box component="h2">{project.name}</Box>
+
+        <Box color="text.secondary">Project Type:</Box>
+        <Box color="text.primary" mb={3}>{project.type}</Box>
+
+        <Box color="text.secondary">Description:</Box>
+        <Box color="text.primary" mb={3}>{project.description}</Box>
+
+        <Box color="text.secondary">Repository Link:</Box>
+        <Box color="text.primary" mb={3}>{project.repoLink || "\u2014"}</Box>
+
+        <Box color="error.main">{ error && <p>{error.message}</p> }</Box>
+      </Typography>
     )
   }
 }
