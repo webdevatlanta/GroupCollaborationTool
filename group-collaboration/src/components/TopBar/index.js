@@ -27,8 +27,7 @@ const useStyles = makeStyles(theme => ({
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "block"
-    },
-    
+    }
   },
   titleLink: {
     color: theme.palette.common.white,
@@ -113,11 +112,14 @@ export default function(props) {
           color="inherit"
           aria-label="open drawer"
           onClick={handleDrawerOpen}
+          style={props.drawerOpen ? { display: "none" } : { display: "block" }}
         >
           <MenuIcon />
         </IconButton>
         <Typography className={classes.title} variant="h6" noWrap>
-          <Link to={ROUTES.LANDING} className={classes.titleLink}>Groopa</Link>
+          <Link to={ROUTES.LANDING} className={classes.titleLink}>
+            Groopa
+          </Link>
         </Typography>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
