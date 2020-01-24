@@ -85,7 +85,7 @@ export default function(props) {
       </List>
       <Divider />
       <List>
-        {session.user && (
+        {session && (
           <ListItem button>
             <ListItemText
               primary="Sign Out"
@@ -93,7 +93,7 @@ export default function(props) {
             ></ListItemText>
           </ListItem>
         )}
-        {!session.user && (
+        {!session && (
           <ListItem button>
             <ListItemText
               primary="Sign In"

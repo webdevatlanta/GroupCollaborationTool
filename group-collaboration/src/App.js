@@ -13,7 +13,7 @@ import ProjectViewer from "./components/ProjectViewer";
 import ProjectEditor from "./components/ProjectEditor";
 import NavDrawer from "./components/NavDrawer";
 import { makeStyles } from "@material-ui/core/styles";
-import { SessionContext } from "./components/Session";
+import toSession, { SessionContext } from "./components/Session";
 import { FirebaseContext } from "./components/Firebase";
 import * as ROUTES from "./constants/routes";
 import * as STYLES from "./constants/styles";
@@ -45,14 +45,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function() {
   const firebase = useContext(FirebaseContext);
-  const [session, setSession] = useState({ user: firebase.auth.currentUser });
+  const [session, setSession] = useState(toSession(firebase.auth.currentUser));
   const [drawerOpen, setDrawerOpen] = useState(true);
   const classes = useStyles();
 
   useEffect(() => {
-    const unlisten = firebase.auth.onAuthStateChanged(user =>
-      setSession({ displayName: user.displayName, email: user.email, uid: user.uid })
-    );
+    const unlisten = firebase.auth.onAuthStateChanged(user => {
+      setSession(toSession(user));
+    });
 
     return () => unlisten();
   }, [firebase.auth]);
