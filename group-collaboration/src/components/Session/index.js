@@ -1,5 +1,12 @@
-import SessionContext from './context'
-import Session from './session'
+import SessionContext from "./context";
 
-export default Session
-export {SessionContext}
+export default function toSession(user) {
+  if (user) {
+    let { displayName, email, uid } = user;
+    return { displayName, email, uid };
+  } else {
+    return null;
+  }
+}
+
+export { SessionContext };
