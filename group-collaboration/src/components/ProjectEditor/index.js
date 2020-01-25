@@ -1,6 +1,8 @@
-import React, {useContext, useState, useEffect} from 'react';
-import EditorForm from './form';
-import {FirebaseContext} from '../Firebase';
+import React, { useContext, useState, useEffect } from "react";
+import EditorForm from "./form";
+import MessageEditor from "./messageEditor";
+import MessageViewer from "./messageViewer";
+import { FirebaseContext } from "../Firebase";
 
 export default function(props) {
   const [error, setError] = useState(null);
@@ -8,8 +10,8 @@ export default function(props) {
   const firebase = useContext(FirebaseContext);
   const {
     match: {
-      params: {id},
-    },
+      params: { id }
+    }
   } = props;
 
   useEffect(() => {
@@ -31,6 +33,8 @@ export default function(props) {
       <div>
         <h1>Project Editor</h1>
         <EditorForm projectId={id} project={project} />
+        <MessageViewer projectId={id} />
+        <MessageEditor projectId={id} />
         {error && <p>{error.message}</p>}
       </div>
     );

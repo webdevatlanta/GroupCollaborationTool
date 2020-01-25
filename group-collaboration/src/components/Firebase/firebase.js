@@ -56,9 +56,24 @@ export default class Firebase {
       owner,
       name,
       type,
-      description, 
+      description,
       repoLink
     });
+
+  addProjectMessage = (id, fields) =>
+    this.db
+      .collection(process.env.REACT_APP_PROJECTS_COLLECTION)
+      .doc(id)
+      .collection("messages")
+      .add(fields);
+
+  getProjectMessages = id =>
+    this.db
+      .collection(process.env.REACT_APP_PROJECTS_COLLECTION)
+      .doc(id)
+      .collection("messages")
+      .get()
+      .then(({ docs }) => docs.map(doc => doc.data()));
 
   updateProject = (id, fields) =>
     this.db
