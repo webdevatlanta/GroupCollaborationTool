@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import EditorForm from "./form";
-import MessageEditor from "./messageEditor";
-import MessageViewer from "./messageViewer";
+import MessageEditor from "../MessageEditor";
+import MessageViewer from "../MessageViewer";
 import { FirebaseContext } from "../Firebase";
 
 export default function(props) {
