@@ -36,6 +36,7 @@ export default class Firebase {
 
   sendPasswordResetEmail = email => this.auth.sendPasswordResetEmail(email);
 
+
   getProjects = () =>
     this.db
       .collection(process.env.REACT_APP_PROJECTS_COLLECTION)
