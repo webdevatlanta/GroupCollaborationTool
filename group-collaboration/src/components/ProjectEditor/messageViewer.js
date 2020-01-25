@@ -7,10 +7,10 @@ export default function(params) {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    firebase
-      .getProjectMessages(params.projectId)
-      .then(setMessages)
-      .catch(error => setError(error));
+    const unsubscribe = firebase
+      .subscribeProjectMessages(params.projectId, setMessages)
+      .catch(setError);
+    return () => unsubscribe();
   }, [params.projectId, firebase]);
 
   const renderMessages = messages.map((message, key) => (
