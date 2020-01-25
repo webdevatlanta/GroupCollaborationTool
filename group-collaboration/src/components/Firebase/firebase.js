@@ -81,13 +81,16 @@ export default class Firebase {
       .get()
       .then(({ docs }) => docs.map(doc => doc.data()));
 
-  subscribeProjectMessages = (id, callback) =>
+  subscribeProjectMessages = (id, callback, errorCallback) =>
     this.db
       .collection(process.env.REACT_APP_PROJECTS_COLLECTION)
       .doc(id)
       .collection("messages")
       .orderBy("created", "asc")
-      .onSnapshot(query => callback(query.docs.map(doc => doc.data())));
+      .onSnapshot(
+        query => callback(query.docs.map(doc => doc.data())),
+        errorCallback
+      );
 
   updateProject = (id, fields) =>
     this.db

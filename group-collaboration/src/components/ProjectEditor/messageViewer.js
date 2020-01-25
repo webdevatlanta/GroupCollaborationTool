@@ -7,9 +7,11 @@ export default function(params) {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const unsubscribe = firebase
-      .subscribeProjectMessages(params.projectId, setMessages)
-      .catch(setError);
+    const unsubscribe = firebase.subscribeProjectMessages(
+      params.projectId,
+      setMessages,
+      setError
+    );
     return () => unsubscribe();
   }, [params.projectId, firebase]);
 
