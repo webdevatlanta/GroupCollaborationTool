@@ -1,8 +1,10 @@
 import React, { useState, useContext } from "react";
 import { FirebaseContext } from "../Firebase";
+import { SessionContext } from "../Session";
 
 export default function(params) {
   const firebase = useContext(FirebaseContext);
+  const session = useContext(SessionContext);
   const [content, setContent] = useState("");
   const [error, setError] = useState("");
 
@@ -10,7 +12,11 @@ export default function(params) {
   const handleSubmit = evt => {
     evt.preventDefault();
     firebase
-      .addProjectMessage(params.projectId, { content })
+      .addProjectMessage(params.projectId, {
+        authorDisplayName: session.displayName,
+        authorUid: session.uid,
+        content
+      })
       .then(result => setContent(""))
       .catch(error => setError(error));
   };
