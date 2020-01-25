@@ -65,7 +65,7 @@ export default class Firebase {
       .collection(process.env.REACT_APP_PROJECTS_COLLECTION)
       .doc(id)
       .collection("messages")
-      .add(fields);
+      .add({ ...fields, created: this.db.FieldValue.serverTimestamp() });
 
   getProjectMessages = id =>
     this.db
