@@ -34,7 +34,7 @@ export default class Firebase {
 
   doSignOut = () => this.auth.signOut();
 
-  sendPasswordResetEmail = (email) => this.auth.sendPasswordResetEmail(email)
+  sendPasswordResetEmail = email => this.auth.sendPasswordResetEmail(email);
 
   getProjects = () =>
     this.db
@@ -67,13 +67,17 @@ export default class Firebase {
       .collection(process.env.REACT_APP_PROJECTS_COLLECTION)
       .doc(id)
       .collection("messages")
-      .add({ ...fields, created: this.db.FieldValue.serverTimestamp() });
+      .add({
+        ...fields,
+        created: app.firestore.FieldValue.serverTimestamp()
+      });
 
   getProjectMessages = id =>
     this.db
       .collection(process.env.REACT_APP_PROJECTS_COLLECTION)
       .doc(id)
       .collection("messages")
+      .orderBy("created", "asc")
       .get()
       .then(({ docs }) => docs.map(doc => doc.data()));
 
