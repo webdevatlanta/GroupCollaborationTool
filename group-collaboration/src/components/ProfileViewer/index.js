@@ -1,37 +1,35 @@
-import React, {useContext, useState, useEffect} from 'react'
-import {FirebaseContext} from '../Firebase'
+import React, { useContext, useState, useEffect } from "react";
+import { FirebaseContext } from "../Firebase";
 
 export default function(props) {
-  const firebase = useContext(FirebaseContext)
+  const {
+    match: {
+      params: { uid }
+    }
+  } = props;
 
-  const { match: { params: { uid } } } = props
-  const [profile, setProfile] = useState(null)
-  const [error, setError] = useState(null)
+  const firebase = useContext(FirebaseContext);
+  const [profile, setProfile] = useState(null);
+  const [error, setError] = useState(null);
 
-  useEffect( () => {
+  useEffect(() => {
     firebase
       .getProfile(uid)
       .then(setProfile)
-      .catch(setError)
-  }, [uid, firebase])
+      .catch(setError);
+  }, []);
 
   return (
     <div>
       <h1>Profile Viewer</h1>
-      { profile &&
+      {profile && (
         <>
           <p>{profile.displayName}</p>
-          <p>
-            {profile.description}
-          </p>
+          <p>{profile.description}</p>
         </>
-      }
-      { !profile &&
-        <p>
-          Nothing here.
-        </p>
-      }
-      { error && <p>{error.message}</p> }
+      )}
+      {!profile && <p>Nothing here.</p>}
+      {error && <p>{error.message}</p>}
     </div>
-  )
+  );
 }

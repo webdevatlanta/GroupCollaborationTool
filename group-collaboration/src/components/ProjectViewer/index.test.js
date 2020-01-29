@@ -1,0 +1,57 @@
+import React from "react";
+import ReactDOM from "react-dom";
+import { act } from "react-dom/test-utils";
+import ProjectViewer from "./index";
+import { FirebaseContext } from "../Firebase";
+import { SessionContext } from "../Session";
+
+it("renders without crashing", async () => {
+  const div = document.createElement("div");
+
+  const fakeproject_id = "abc123";
+  const fakeproject = {
+    name: "hi",
+    type: "private",
+    description: "project description",
+    repoLink: "https://test.example.com/hi"
+  };
+
+  const fakesession = {
+    uid: 123
+  };
+
+  const projectPromise = {
+    resolve: undefined,
+    reject: undefined
+  };
+
+  const fakebase = {
+    getProject: id =>
+      new Promise((resolve, reject) => {
+        projectPromise.resolve = resolve;
+      }),
+
+    subscribeProjectMessages: (id, callback, error) => {
+      callback([]); // Return an empty list of messages.
+      return function() {};
+    }
+  };
+
+  // This would be provided by the Router, taken from the URL.
+  const match = { params: { id: fakeproject_id } };
+
+  act(() => {
+    ReactDOM.render(
+      <FirebaseContext.Provider value={fakebase}>
+        <SessionContext.Provider value={fakesession}>
+          <ProjectViewer match={match} />
+        </SessionContext.Provider>
+      </FirebaseContext.Provider>,
+      div
+    );
+  });
+
+  await act(async () => {
+    projectPromise.resolve(fakeproject);
+  });
+});
