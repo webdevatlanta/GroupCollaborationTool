@@ -7,7 +7,7 @@ Tool to allow developers to collaborate on open source and private projects
 cd group-collaboration folder
 
 ```
-npm install
+yarn
 ```
 
 ## Start the app:
@@ -15,12 +15,6 @@ npm install
 ```
 cd group-collaboration
 ```
-
-```
-npm start
-```
-
-or
 
 ```
 yarn start
