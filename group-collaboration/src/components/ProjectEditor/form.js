@@ -1,36 +1,35 @@
-import React, {useState, useContext} from 'react'
-import {FirebaseContext} from '../Firebase'
-import {SessionContext} from '../Session'
-import {useHistory} from 'react-router-dom'
-import * as ROUTES from '../../constants/routes';
+import React, { useState, useContext } from "react";
+import { FirebaseContext } from "../Firebase";
+import { SessionContext } from "../Session";
 
 export default function(params) {
-  const history = useHistory()
-  const firebase = useContext(FirebaseContext)
-  const session = useContext(SessionContext)
+  const firebase = useContext(FirebaseContext);
+  const session = useContext(SessionContext);
 
-  const [owner] = useState(session.uid)
-  const [name, setName] = useState(params.project.name)
-  const [type, setType] = useState(params.project.type)
-  const [description, setDescription] = useState(params.project.description)
-  const [repoLink, setRepoLink] = useState(params.project.repoLink) 
-  const [error, setError] = useState("")
+  const [owner] = useState(session.uid);
+  const [name, setName] = useState(params.project.name);
+  const [type, setType] = useState(params.project.type);
+  const [description, setDescription] = useState(params.project.description);
+  const [repoLink, setRepoLink] = useState(params.project.repoLink);
+  const [error, setError] = useState("");
 
   const validate = () => {
-    return (
-      name.length > 0 &&
-      type.length > 0 &&
-      description.length > 0
-    )
-  }
+    return name.length > 0 && type.length > 0 && description.length > 0;
+  };
 
-  const onSubmit = (event) => {
+  const onSubmit = event => {
     event.preventDefault();
 
-    firebase.updateProject(params.projectId, {owner, name, type, description, repoLink})
-      .then( () => history.push(ROUTES.LANDING) )
-      .catch( error => setError(error) )
-  }
+    firebase
+      .updateProject(params.projectId, {
+        owner,
+        name,
+        type,
+        description,
+        repoLink
+      })
+      .catch(error => setError(error));
+  };
 
   return (
     <div>
@@ -43,10 +42,10 @@ export default function(params) {
           onChange={e => setName(e.target.value)}
         />
         <select value={type} onChange={e => setType(e.target.value)}>
-            <option value="Open Source">Open Source</option>
-            <option value="Private">Private</option>
-          </select>
-        <br/>
+          <option value="Open Source">Open Source</option>
+          <option value="Private">Private</option>
+        </select>
+        <br />
         <textarea
           cols="45"
           rows="10"
@@ -54,7 +53,7 @@ export default function(params) {
           value={description}
           onChange={e => setDescription(e.target.value)}
         />
-        <br/>
+        <br />
         <input
           type="text"
           placeholder="repository link"
@@ -66,5 +65,5 @@ export default function(params) {
         {error && <p>{error.message}</p>}
       </form>
     </div>
-  )
+  );
 }
