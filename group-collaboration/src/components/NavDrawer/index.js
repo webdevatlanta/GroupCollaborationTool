@@ -77,7 +77,6 @@ export default function(props) {
 
         <NavLink exact activeClassName="active" to="/profile">
           <ListItemText
-            // className={className}
             primary="Account"
             onClick={handleAccountSelected}
           ></ListItemText>
@@ -86,7 +85,6 @@ export default function(props) {
         <ListItem button>
         <NavLink  exact activeClassName="active" to="/">
           <ListItemText
-            // className={className}
             primary="Projects"
             onClick={handleProjectsSelected}
           ></ListItemText>
