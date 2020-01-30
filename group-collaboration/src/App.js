@@ -72,11 +72,15 @@ export default function() {
           >
             <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
             <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-            <Route path={ROUTES.FORGOT_PASSWORD} component={ForgotPasswordPage} />
+            <Route
+              path={ROUTES.FORGOT_PASSWORD}
+              component={ForgotPasswordPage}
+            />
             <Route exact path={ROUTES.EDIT_PROFILE} component={ProfileEditor} />
             <Route path={ROUTES.VIEW_PROFILE} component={ProfileViewer} />
-            <Route exact path={ROUTES.NEW_PROJECT} component={NewProjectPage} />
             <Route exact path={ROUTES.VIEW_PROJECT} component={ProjectViewer} />
+            <Route exact path={ROUTES.NEW_PROJECT} component={NewProjectPage} />
+
             <Route exec path={ROUTES.EDIT_PROJECT} component={ProjectEditor} />
             <Route exact path={ROUTES.LANDING} component={LandingPage} />
           </main>
