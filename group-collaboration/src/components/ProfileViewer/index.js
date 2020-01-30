@@ -17,7 +17,7 @@ export default function(props) {
       .getProfile(uid)
       .then(setProfile)
       .catch(setError);
-  }, []);
+  }, [firebase, uid]);
 
   return (
     <div>
