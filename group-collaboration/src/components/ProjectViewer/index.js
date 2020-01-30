@@ -21,6 +21,10 @@ export default function(props) {
       .catch(setError);
   }, [id, firebase]);
 
+  if (id === "new") {
+    return <></>;
+  }
+
   if (!project) {
     return (
       <div>
