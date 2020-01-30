@@ -11,6 +11,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { FirebaseContext } from "../Firebase";
 import { SessionContext } from "../Session";
+import { NavLink } from 'react-router-dom';
+import { Switch, Route } from "react-router-dom"
+// import activeComponent from 'react-router-active-component';
 
 import * as ROUTES from "../../constants/routes.js";
 import * as STYLES from "../../constants/styles.js";
@@ -71,16 +74,23 @@ export default function(props) {
       <Divider />
       <List>
         <ListItem button>
+
+        <NavLink exact activeClassName="active" to="/profile">
           <ListItemText
+            // className={className}
             primary="Account"
             onClick={handleAccountSelected}
           ></ListItemText>
+          </NavLink>
         </ListItem>
         <ListItem button>
+        <NavLink  exact activeClassName="active" to="/">
           <ListItemText
+            // className={className}
             primary="Projects"
             onClick={handleProjectsSelected}
           ></ListItemText>
+        </NavLink>
         </ListItem>
       </List>
       <Divider />

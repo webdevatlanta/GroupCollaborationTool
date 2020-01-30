@@ -25,3 +25,8 @@
   width: 240;
   flexshrink: 0;
 }
+/* for highlight of active component  */
+.highlight {background-color: #F00; color: #FFF;}
+.active {
+  border-bottom: 3px solid red;
+}
