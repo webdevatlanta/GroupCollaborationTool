@@ -1,28 +1,6 @@
 # GroupCollaborationTool
 
-Tool to allow developers to collaborate on open source and private projects
-
-## Installing dependencies:
-
-cd group-collaboration folder
-
-```
-yarn
-```
-
-## Start the app:
-
-```
-cd group-collaboration
-```
-
-```
-yarn start
-```
-
-## Visit in browser:
-
-http://localhost:3000
+A WeDev Atlanta Project: A tool for collaboration, built through collaboration.
 
 ## Contributing to this open source project
 
@@ -39,17 +17,23 @@ git remote add upstream https://github.com/webdevatlanta/GroupCollaborationTool.
 ```
 get checkout master
 git fetch --all
-git pull upstream master
+git merge upstream/master
 ```
 
-5. Create a feature branch based off master:
+5. Update dependencies
+
+```
+yarn install
+```
+
+6. Create a feature branch based off master:
 
 ```
 git checkout -B my_feature_branch_name_here
 ```
 
-6. Do you work on your feature branch
-7. Add, commit, and push your feature branch to your Github:
+7. Do your work on the feature branch
+8. Add, commit, and push your feature branch to your Github:
 
 ```
 git add .
@@ -57,4 +41,4 @@ git commit -m "My new feature I made"
 git push origin my_feature_branch_name_here
 ```
 
-8. Go to your forked repo on github and create a pull request from your feature branch to master
+9. Go to your forked repo on github and create a pull request from your feature branch to master
