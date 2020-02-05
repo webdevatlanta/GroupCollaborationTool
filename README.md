@@ -1,55 +1,56 @@
 # GroupCollaborationTool
 
-Tool to allow developers to collaborate on open source and private projects
+A WeDev Atlanta Project. A tool for collaboration, built through collaboration.
 
-## Installing dependencies:
+## Get a forked copy of this repo
 
-cd group-collaboration folder
+1. Use the GitHub Fork button to fork the repo.
 
-```
-yarn
-```
-
-## Start the app:
+2. Clone the forked copy to your computer.
 
 ```
-cd group-collaboration
+git clone https://gthub.com/<your-user-name>/GroupCollaborationTool.git
 ```
 
-```
-yarn start
-```
-
-## Visit in browser:
-
-http://localhost:3000
-
-## Contributing to this open source project
-
-1. Fork the repo so you have your own copy to work off of.
-2. Clone your forked copy (So will have you user name in the clone link)
 3. Add an upstream to the shared repo:
 
 ```
+cd GroupCollaborationTool
 git remote add upstream https://github.com/webdevatlanta/GroupCollaborationTool.git
 ```
 
-4. Always start off fresh when working on a repo:
+## Making your contribution
+
+1. Always start off fresh when working on a repo:
 
 ```
+cd group-collaboration
 get checkout master
 git fetch --all
-git pull upstream master
+git merge upstream/master
 ```
 
-5. Create a feature branch based off master:
+2. Install/update dependencies
+
+```
+yarn install
+```
+
+2. Create a feature branch based off master:
 
 ```
 git checkout -B my_feature_branch_name_here
 ```
 
-6. Do you work on your feature branch
-7. Add, commit, and push your feature branch to your Github:
+3. Start the dev server
+
+```
+yarn start
+```
+
+4. ...make your changes to the code.
+
+5. Add, commit, and push your feature branch to your Github:
 
 ```
 git add .
@@ -57,4 +58,4 @@ git commit -m "My new feature I made"
 git push origin my_feature_branch_name_here
 ```
 
-8. Go to your forked repo on github and create a pull request from your feature branch to master
+5.  Go to your forked repo on GitHub and create a pull request from your feature branch to master
