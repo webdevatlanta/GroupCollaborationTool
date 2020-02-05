@@ -1,40 +1,34 @@
-import React, {useState, useContext, useEffect} from 'react'
-import {FirebaseContext} from '../Firebase'
+import React, { useState, useContext, useEffect } from "react";
+import { FirebaseContext } from "../Firebase";
 
 export default function() {
-  const firebase = useContext(FirebaseContext)
-  const [displayName, setDisplayName] = useState(firebase.auth.currentUser.displayName)
-  const [validated, setValidated] = useState(false)
+  const firebase = useContext(FirebaseContext);
+  const [displayName, setDisplayName] = useState(
+    firebase.auth.currentUser.displayName
+  );
+  const [validated, setValidated] = useState(false);
 
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
 
-  useEffect( () => {
-    setDisplayName(firebase.auth.currentUser.displayName)
-  }, [firebase.auth.currentUser.displayName])
+  useEffect(() => {
+    setDisplayName(firebase.auth.currentUser.displayName);
+  }, [firebase.auth.currentUser.displayName]);
 
-  useEffect( () => {
+  useEffect(() => {
     setValidated(
       displayName &&
-      displayName.length > 0 &&
-      displayName !== firebase.auth.currentUser.displayName)
-  }, [displayName, firebase.auth.currentUser.displayName])
+        displayName.length > 0 &&
+        displayName !== firebase.auth.currentUser.displayName
+    );
+  }, [displayName, firebase.auth.currentUser.displayName]);
 
-  // Copies the User displayName field into the adjunct profile document.
-  const syncProfile = (user) => {
-    firebase
-      .updateProfile(user.uid, {displayName: user.displayName})
-      .catch(setError)
-  }
+  const onSubmit = event => {
+    event.preventDefault();
 
-  const onSubmit = (event) => {
-    event.preventDefault()
+    setValidated(false);
 
-    setValidated(false)
-
-    firebase.auth.currentUser.updateProfile({ displayName })
-      .then(() => syncProfile(firebase.auth.currentUser))
-      .catch(setError)
-  }
+    firebase.setDisplayName(displayName).catch(setError);
+  };
 
   return (
     <div>
@@ -52,5 +46,5 @@ export default function() {
         {error && <p>{error.message}</p>}
       </form>
     </div>
-  )
+  );
 }

@@ -20,13 +20,25 @@ export default class Firebase {
     this.db = app.firestore();
   }
 
+  setDisplayName = displayName =>
+    this.auth.currentUser.updateProfile({ displayName });
+
   doCreateUserWithEmailAndPassword = (email, password) =>
     this.auth
       .createUserWithEmailAndPassword(email, password)
-      .then(userCredential => {
+      .then(() => {
+        /* Set the display name on the auth currentUser object */
         const displayName = this.auth.currentUser.email.split("@")[0];
-        this.auth.currentUser.updateProfile({ displayName });
-        return Promise.resolve(userCredential);
+        return this.setDisplayName(displayName);
+      })
+      .then(() => {
+        /* Create the initial profile document */
+        return this.db
+          .collection(process.env.REACT_APP_PROFILES_COLLECTION)
+          .doc(this.auth.currentUser.uid)
+          .set({
+            description: ""
+          });
       });
 
   doSignInWithEmailAndPassword = (email, password) =>
@@ -35,7 +47,6 @@ export default class Firebase {
   doSignOut = () => this.auth.signOut();
 
   sendPasswordResetEmail = email => this.auth.sendPasswordResetEmail(email);
-
 
   getProjects = () =>
     this.db
