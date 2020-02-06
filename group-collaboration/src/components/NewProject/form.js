@@ -3,6 +3,7 @@ import { FirebaseContext } from "../Firebase";
 import { SessionContext } from "../Session";
 import { useHistory } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
+import * as PROJECT_TYPE from "../../constants/project_types";
 
 export default function() {
   const history = useHistory();
@@ -45,8 +46,8 @@ export default function() {
             value={type}
             onChange={e => setType(e.target.value)}
           >
-            <option value="Open Source">Open Source</option>
-            <option value="Private">Private</option>
+            <option value={PROJECT_TYPE.PUBLIC}>{PROJECT_TYPE.PUBLIC}</option>
+            <option value={PROJECT_TYPE.PRIVATE}>{PROJECT_TYPE.PRIVATE}</option>
           </select>
         </div>
 
