@@ -26,7 +26,7 @@ git remote add upstream https://github.com/webdevatlanta/GroupCollaborationTool.
 1. Always start off by fetching and merging the latest changes:
 
 ```
-get checkout master
+git checkout master
 git fetch --all
 git merge upstream/master
 ```
@@ -64,3 +64,15 @@ git push origin my_feature_branch_name_here
 6.  One of the admins will then merge your changes into the main branch.
 
 7.  Return to step 1 and repeat: fetch, merge, branch, edit, commit, push!
+
+## Running tests
+
+1. Run the React test script:
+
+```
+yarn test
+```
+
+2. You will be prompted with a list of options. Most likely, you'll want to press 'A' on your keyboard to run all tests.
+
+3. After the tests have run, press 'Q' on your keyboard to exit.
