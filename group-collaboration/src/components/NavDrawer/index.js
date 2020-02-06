@@ -12,7 +12,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { FirebaseContext } from "../Firebase";
 import { SessionContext } from "../Session";
 import { NavLink } from 'react-router-dom';
-import { Switch, Route } from "react-router-dom"
+// import { Switch, Route } from "react-router-dom"
 // import activeComponent from 'react-router-active-component';
 
 import * as ROUTES from "../../constants/routes.js";
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function(props) {
+export default function (props) {
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
   const session = useContext(SessionContext);
@@ -67,28 +67,28 @@ export default function(props) {
           {theme.direction === "ltr" ? (
             <ChevronLeftIcon />
           ) : (
-            <ChevronRightIcon />
-          )}
+              <ChevronRightIcon />
+            )}
         </IconButton>
       </div>
       <Divider />
       <List>
         <ListItem button>
 
-        <NavLink exact activeClassName="active" to="/profile">
-          <ListItemText
-            primary="Account"
-            onClick={handleAccountSelected}
-          ></ListItemText>
+          <NavLink exact activeClassName="active" to={ROUTES.EDIT_PROFILE}>
+            <ListItemText
+              primary="Account"
+              onClick={handleAccountSelected}
+            ></ListItemText>
           </NavLink>
         </ListItem>
         <ListItem button>
-        <NavLink  exact activeClassName="active" to="/">
-          <ListItemText
-            primary="Projects"
-            onClick={handleProjectsSelected}
-          ></ListItemText>
-        </NavLink>
+          <NavLink exact activeClassName="active" to={ROUTES.LANDING}>
+            <ListItemText
+              primary="Projects"
+              onClick={handleProjectsSelected}
+            ></ListItemText>
+          </NavLink>
         </ListItem>
       </List>
       <Divider />
