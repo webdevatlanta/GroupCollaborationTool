@@ -18,7 +18,6 @@ import toSession, { SessionContext } from "./components/Session";
 import { FirebaseContext } from "./components/Firebase";
 import * as ROUTES from "./constants/routes";
 import * as STYLES from "./constants/styles";
-import { Switch } from "react-router-dom";
 
 import "./App.css";
 
