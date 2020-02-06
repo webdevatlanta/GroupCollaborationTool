@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Projects from "../Projects";
-import { FirebaseContext } from "../Firebase";
+import { SessionContext } from "../Session";
 import * as ROUTES from "../../constants/routes";
 
 export default function() {
-  const firebase = useContext(FirebaseContext);
+  const session = useContext(SessionContext);
   const history = useHistory();
 
   const handleNewProject = event => {
@@ -22,7 +22,7 @@ export default function() {
         </a>
         .
       </p>
-      {!firebase.auth.currentUser && (
+      {!session && (
         <p>
           {" "}
           You are not signed in. If you have an account,{" "}
@@ -30,14 +30,14 @@ export default function() {
           <a href={ROUTES.SIGN_UP}>sign up</a>!
         </p>
       )}
-      {firebase.auth.currentUser && (
+      {session && (
         <div>
           <button type="button" onClick={evt => handleNewProject(evt)}>
             Create New Project
           </button>
         </div>
       )}
-      {firebase.auth.currentUser && (
+      {session && (
         <>
           <Projects />
         </>
