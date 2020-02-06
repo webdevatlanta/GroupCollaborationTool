@@ -34,7 +34,6 @@ git merge upstream/master
 2. Install/update dependencies
 
 ```
-cd group-collaboration
 yarn install
 ```
 
