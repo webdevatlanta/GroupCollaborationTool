@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function(props) {
+export default function (props) {
   const classes = useStyles();
   const firebase = useContext(FirebaseContext);
   const session = useContext(SessionContext);
@@ -66,14 +66,14 @@ export default function(props) {
           {theme.direction === "ltr" ? (
             <ChevronLeftIcon />
           ) : (
-            <ChevronRightIcon />
-          )}
+              <ChevronRightIcon />
+            )}
         </IconButton>
       </div>
       <Divider />
       <List>
         <ListItem button>
-          <NavLink exact activeClassName="active" to="/profile">
+          <NavLink exact activeClassName="active" to={ROUTES.EDIT_PROFILE}>
             <ListItemText
               primary="Account"
               onClick={handleAccountSelected}
@@ -81,7 +81,7 @@ export default function(props) {
           </NavLink>
         </ListItem>
         <ListItem button>
-          <NavLink exact activeClassName="active" to="/">
+          <NavLink exact activeClassName="active" to={ROUTES.LANDING}>
             <ListItemText
               primary="Projects"
               onClick={handleProjectsSelected}
