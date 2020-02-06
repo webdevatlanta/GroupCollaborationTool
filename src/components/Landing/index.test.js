@@ -4,6 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import { act } from "react-dom/test-utils";
 import Landing from "./index";
 import { FirebaseContext } from "../Firebase";
+import { SessionContext } from "../Session";
 
 it("renders without crashing", async () => {
   const div = document.createElement("div");
@@ -13,8 +14,9 @@ it("renders without crashing", async () => {
     reject: undefined
   };
 
+  const fakesession = { uid: "123" };
+
   const fakebase = {
-    auth: { currentUser: { uid: "123" } },
     getProjects: () =>
       new Promise((resolve, reject) => {
         projectsPromise.resolve = resolve;
@@ -26,7 +28,9 @@ it("renders without crashing", async () => {
     ReactDOM.render(
       <MemoryRouter>
         <FirebaseContext.Provider value={fakebase}>
-          <Landing />
+          <SessionContext.Provider value={fakesession}>
+            <Landing />
+          </SessionContext.Provider>
         </FirebaseContext.Provider>
       </MemoryRouter>,
       div
