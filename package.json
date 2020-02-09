@@ -1,42 +1,42 @@
 {
-	"name": "group-collaboration",
-	"version": "0.1.0",
-	"private": true,
-	"dependencies": {
-		"@material-ui/core": "^4.6.1",
-		"@material-ui/icons": "^4.5.1",
-		"firebase": "^7.6.2",
-		"react": "^16.11.0",
-		"react-dom": "^16.11.0",
-		"react-router-dom": "^5.1.2",
-		"react-scripts": "3.2.0"
-	},
-	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject",
-		"postinstall": "printf '#/bin/sh\ncd $(git rev-parse --git-dir)/.. && yarn install' > $(git rev-parse --git-dir)/hooks/post-merge && chmod +x $(git rev-parse --git-dir)/hooks/post-merge"
-	},
-	"eslintConfig": {
-		"extends": "react-app"
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	},
-	"devDependencies": {
-		"enzyme": "^3.10.0",
-		"enzyme-adapter-react-16": "^1.15.1",
-		"firebase-tools": "^7.12.1",
-		"react-test-renderer": "^16.11.0"
-	}
+  "name": "group-collaboration",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.6.1",
+    "@material-ui/icons": "^4.5.1",
+    "firebase": "^7.6.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "postinstall": "printf '#/bin/sh\ncd $(git rev-parse --git-dir)/.. && yarn install' > $(git rev-parse --git-dir)/hooks/post-merge && chmod +x $(git rev-parse --git-dir)/hooks/post-merge"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "firebase-tools": "^7.12.1",
+    "react-test-renderer": "^16.11.0"
+  }
 }
