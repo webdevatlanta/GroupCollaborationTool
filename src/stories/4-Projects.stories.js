@@ -1,20 +1,26 @@
 import React from 'react';
+import Projects from '../components/Projects';
 import { action } from '@storybook/addon-actions';
 import { Button } from '@storybook/react/demo';
+import { FirebaseContext } from '../components/Firebase';
 
 export default {
   title: 'Button',
   component: Button
 };
 
-export const Text = () => (
-  <Button onClick={action('clicked')}>Hello Button</Button>
-);
+const fakebase = {
+  auth: {
+    currentUser: {
+      uid: 1,
+      displayName: 'hi',
+      email: 'hi@example.com'
+    }
+  }
+};
 
-export const Emoji = () => (
-  <Button onClick={action('clicked')}>
-    <span role="img" aria-label="so cool">
-      😀 😎 👍 💯
-    </span>
-  </Button>
+export const Default = () => (
+  <FirebaseContext.Provider value={fakebase}>
+    <Projects />
+  </FirebaseContext.Provider>
 );
