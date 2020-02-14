@@ -1,52 +1,52 @@
-import React, {useContext, useState, useEffect} from 'react'
-import {useHistory} from 'react-router-dom'
-import {FirebaseContext} from '../Firebase'
-import EmailVerifier from './emailVerifier'
-import NameEditor from './nameEditor'
-import BiographyEditor from './biographyEditor'
-import Button from '@material-ui/core/Button'
-import * as ROUTES from '../../constants/routes';
+import React, { useContext, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { FirebaseContext } from "../Firebase";
+import { SessionContext } from "../Session";
+import EmailVerifier from "./emailVerifier";
+import NameEditor from "./nameEditor";
+import BiographyEditor from "./biographyEditor";
+import Button from "@material-ui/core/Button";
+import * as ROUTES from "../../constants/routes";
 
 export default function() {
-  const history = useHistory()
-  const firebase = useContext(FirebaseContext)
-  const [viewerLink, setViewerLink] = useState("")
+  const history = useHistory();
+  const firebase = useContext(FirebaseContext);
+  const session = useContext(SessionContext);
+  const [viewerLink, setViewerLink] = useState("");
 
-  useEffect( () => {
-    if (firebase.auth.currentUser) {
-      const link = ROUTES.VIEW_PROFILE.replace(":uid", firebase.auth.currentUser.uid)
-      setViewerLink(link)
+  useEffect(() => {
+    if (session) {
+      const link = ROUTES.VIEW_PROFILE.replace(":uid", session.uid);
+      setViewerLink(link);
     } else {
-      setViewerLink(null)
+      setViewerLink(null);
     }
-  }, [firebase.auth.currentUser])
+  }, [session]);
 
   const handleLogout = () => {
-    firebase.doSignOut()
-    history.push(ROUTES.LANDING)
-  }
+    firebase.doSignOut();
+    history.push(ROUTES.LANDING);
+  };
 
-  if (firebase.auth.currentUser) {
+  if (session) {
     return (
       <div>
         <h1>Profile</h1>
-        { firebase.auth.currentUser &&
+        {session && (
           <>
-            <EmailVerifier/>
-            <NameEditor/>
-            <BiographyEditor/>
+            <EmailVerifier />
+            <NameEditor />
+            <BiographyEditor />
             <a href={viewerLink}>View this profile</a>
-            <br/>
+            <br />
             <Button color="primary" onClick={handleLogout}>
               Click to log out
             </Button>
           </>
-        }
+        )}
       </div>
-    )
+    );
   } else {
-    return (
-      <a href="/signin">Please sign in.</a>
-    )
+    return <a href="/signin">Please sign in.</a>;
   }
 }

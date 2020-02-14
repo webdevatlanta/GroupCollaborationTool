@@ -15,7 +15,7 @@ export default function() {
 
     firebase
       .doSignInWithEmailAndPassword(email, password)
-      .then(user => history.push(ROUTES.LANDING))
+      .then(() => history.push(ROUTES.LANDING))
       .catch(error => setError(error));
   };
 
