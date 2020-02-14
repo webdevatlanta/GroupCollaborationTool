@@ -1,25 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
-import MessageViewer from "./index";
+import FollowersViewer from "./index";
 import { FirebaseContext } from "../Firebase";
 
-it("renders without crashing", () => {
+it("renders without crashing", async () => {
   const div = document.createElement("div");
 
   const fakebase = {
-    subscribeProjectMessages: (id, callback, error) => {
-      callback([]); // respond with an empty array, i.e. no messages
-      return function() {};
+    getProjectFollowers: id => {
+      return Promise.resolve([{ displayName: "me" }]);
     }
   };
 
-  act(() => {
+  await act(async () => {
     ReactDOM.render(
       <FirebaseContext.Provider value={fakebase}>
-        <MessageViewer />
+        <FollowersViewer projectId="123" />
       </FirebaseContext.Provider>,
       div
     );
   });
+  expect(div.innerHTML).toContain("me");
 });
