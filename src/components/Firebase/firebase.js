@@ -37,12 +37,28 @@ export default class Firebase {
           .collection(process.env.REACT_APP_PROFILES_COLLECTION)
           .doc(this.auth.currentUser.uid)
           .set({
+            uid: this.auth.currentUser.uid,
+            displayName: this.auth.currentUser.displayName,
+            email: this.auth.currentUser.email,
             description: ""
           });
       });
 
   doSignInWithEmailAndPassword = (email, password) =>
-    this.auth.signInWithEmailAndPassword(email, password);
+    this.auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => this.syncUserProfile());
+
+  syncUserProfile = () =>
+    this.db
+      .collection(process.env.REACT_APP_PROFILES_COLLECTION)
+      .doc(this.auth.currentUser.uid)
+      .update({
+        uid: this.auth.currentUser.uid,
+        displayName: this.auth.currentUser.displayName,
+        email: this.auth.currentUser.email
+      })
+      .then(() => Promise.resolve(this.auth.currentUser));
 
   doSignOut = () => this.auth.signOut();
 
@@ -82,9 +98,19 @@ export default class Firebase {
       .doc(user_id)
       .set({
         following: true,
-        userRef: this.db
+        profileRef: this.db
           .collection(process.env.REACT_APP_PROFILES_COLLECTION)
           .doc(user_id)
+      });
+
+  removeProjectFollower = ({ project_id, user_id }) =>
+    this.db
+      .collection(process.env.REACT_APP_PROJECTS_FOLLOWERS_COLLECTION)
+      .doc(project_id)
+      .collection("followers")
+      .doc(user_id)
+      .set({
+        following: false
       });
 
   getProjectFollowers = id =>
@@ -95,7 +121,7 @@ export default class Firebase {
       .where("following", "==", true)
       .get()
       .then(({ docs }) => docs.map(doc => doc.data()))
-      .then(datas => datas.map(data => data.userRef.get()))
+      .then(datas => datas.map(data => data.profileRef.get()))
       .then(promises => Promise.all(promises))
       .then(docs => docs.map(doc => doc.data()));
 

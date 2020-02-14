@@ -16,7 +16,7 @@ export default function(params) {
   }, [params.projectId, firebase]);
 
   const renderFollowers = followers.map((follower, key) => (
-    <li key={key}>{follower.description}</li>
+    <li key={key}>{follower.displayName}</li>
   ));
 
   return (
