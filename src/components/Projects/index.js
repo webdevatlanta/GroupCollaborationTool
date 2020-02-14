@@ -5,7 +5,6 @@ import { FirebaseContext } from "../Firebase";
 
 export default function() {
   const firebase = useContext(FirebaseContext);
-  console.log(firebase);
   const [projects, setProjects] = useState([]);
   const [error, setError] = useState("");
 
