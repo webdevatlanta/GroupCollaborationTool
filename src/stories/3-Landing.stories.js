@@ -19,6 +19,11 @@ let userData = {
   uid: '0'
 };
 
+const projectsPromise = {
+  resolve: undefined,
+  reject: undefined
+};
+
 const fakebase = {
   auth: { currentUser: { uid: '123' } },
   getProjects: () =>
