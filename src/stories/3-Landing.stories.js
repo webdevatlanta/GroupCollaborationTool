@@ -1,22 +1,22 @@
-import React, { useContext } from 'react';
-import { storiesOf } from '@storybook/react';
-import { useHistory, MemoryRouter } from 'react-router-dom';
-import Landing from '../components/Landing';
-import Projects from '../components/Projects';
-import { SessionContext } from '../components/Session';
-import { FirebaseContext } from '../components/Firebase';
-import * as ROUTES from '../constants/routes';
+import React, { useContext } from "react";
+import { storiesOf } from "@storybook/react";
+import { useHistory, MemoryRouter } from "react-router-dom";
+import Landing from "../components/Landing";
+import Projects from "../components/Projects";
+import { SessionContext } from "../components/Session";
+import { FirebaseContext } from "../components/Firebase";
+import * as ROUTES from "../constants/routes";
 
 export default {
-  title: 'Landing',
+  title: "Landing",
   component: Landing
 };
 
 let fakeSession = false;
 let userData = {
-  displayName: 'User',
-  email: 'user@domain.com',
-  uid: '0'
+  displayName: "User",
+  email: "user@domain.com",
+  uid: "0"
 };
 
 const projectsPromise = {
@@ -25,7 +25,7 @@ const projectsPromise = {
 };
 
 const fakebase = {
-  auth: { currentUser: { uid: '123' } },
+  auth: { currentUser: { uid: "123" } },
   getProjects: () =>
     new Promise((resolve, reject) => {
       projectsPromise.resolve = resolve;
@@ -33,18 +33,18 @@ const fakebase = {
     })
 };
 
-storiesOf('Landing', module)
+storiesOf("Landing", module)
   .addDecorator(story => (
     <FirebaseContext value={fakebase}>
       <SessionContext.Provider value={userData}>
-        <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
+        <MemoryRouter initialEntries={["/"]}>{story()}</MemoryRouter>
       </SessionContext.Provider>
     </FirebaseContext>
   ))
-  .add('Not Signed In', () => {
+  .add("Not Signed In", () => {
     return <Landing />;
   })
-  .add('Signed In', () => {
+  .add("Signed In", () => {
     fakeSession = userData;
     return <Landing />;
   });

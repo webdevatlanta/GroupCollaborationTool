@@ -1,12 +1,12 @@
-import React from 'react';
-import ForgotPassword from '../components/ForgotPassword';
-import { MemoryRouter } from 'react-router-dom';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import ForgotPassword from "../components/ForgotPassword";
+import { MemoryRouter } from "react-router-dom";
+import { storiesOf } from "@storybook/react";
 
-storiesOf('Forgot Password', module)
+storiesOf("Forgot Password", module)
   .addDecorator(story => (
-    <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
+    <MemoryRouter initialEntries={["/"]}>{story()}</MemoryRouter>
   ))
-  .add('Default', () => {
+  .add("Default", () => {
     return <ForgotPassword />;
   });
