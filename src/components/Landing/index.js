@@ -7,7 +7,6 @@ import * as ROUTES from "../../constants/routes";
 
 export default function() {
   const session = useContext(SessionContext);
-  console.log(session);
   const history = useHistory();
 
   const handleNewProject = event => {
