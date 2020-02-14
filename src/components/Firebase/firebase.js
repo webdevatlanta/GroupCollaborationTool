@@ -74,6 +74,31 @@ export default class Firebase {
       repoLink
     });
 
+  addProjectFollower = ({ project_id, user_id }) =>
+    this.db
+      .collection(process.env.REACT_APP_PROJECTS_FOLLOWERS_COLLECTION)
+      .doc(project_id)
+      .collection("followers")
+      .doc(user_id)
+      .set({
+        following: true,
+        userRef: this.db
+          .collection(process.env.REACT_APP_PROFILES_COLLECTION)
+          .doc(user_id)
+      });
+
+  getProjectFollowers = id =>
+    this.db
+      .collection(process.env.REACT_APP_PROJECTS_FOLLOWERS_COLLECTION)
+      .doc(id)
+      .collection("followers")
+      .where("following", "==", true)
+      .get()
+      .then(({ docs }) => docs.map(doc => doc.data()))
+      .then(datas => datas.map(data => data.userRef.get()))
+      .then(promises => Promise.all(promises))
+      .then(docs => docs.map(doc => doc.data()));
+
   addProjectMessage = (id, fields) =>
     this.db
       .collection(process.env.REACT_APP_PROJECTS_COLLECTION)
