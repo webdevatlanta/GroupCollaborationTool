@@ -34,6 +34,17 @@ export default class Firebase {
       .signInWithEmailAndPassword(email, password)
       .then(() => this.syncUserProfile());
 
+  createUserProfile = user =>
+    this.db
+      .collection(process.env.REACT_APP_PROFILES_COLLECTION)
+      .doc(user.uid)
+      .set({
+        uid: user.uid,
+        displayName: user.displayName,
+        email: user.email,
+        description: ""
+      });
+
   syncUserProfile = () =>
     this.db
       .collection(process.env.REACT_APP_PROFILES_COLLECTION)

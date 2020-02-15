@@ -67,12 +67,20 @@ git push origin my_feature_branch_name_here
 
 ## Running tests
 
-1. Run the React test script:
+0. Install Firebase/Firestore emulators (only need to do this once)
+
+```
+npx firebase setup:emulators:firestore
+```
+
+1. Start the Firestore emulator:
+
+```
+npx firebase emulators:start --only firestore
+```
+
+2. Run the React test script:
 
 ```
 yarn test
 ```
-
-2. You will be prompted with a list of options. Most likely, you'll want to press 'A' on your keyboard to run all tests.
-
-3. After the tests have run, press 'Q' on your keyboard to exit.
