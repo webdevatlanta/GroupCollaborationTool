@@ -34,6 +34,10 @@ it("renders without crashing", async () => {
     subscribeProjectMessages: (id, callback, error) => {
       callback([]); // Return an empty list of messages.
       return function() {};
+    },
+
+    getProjectFollowers: id => {
+      return Promise.resolve([{ displayName: "me" }]);
     }
   };
 
