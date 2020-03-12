@@ -1,4 +1,4 @@
-export default class Firebase {
+export default class Provider {
   constructor({ db, auth, serverTimestamp }) {
     this.db = db;
     this.auth = auth;

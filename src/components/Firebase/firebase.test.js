@@ -1,20 +1,16 @@
-import Provider from "./firebase";
-const firebase = require("@firebase/testing");
-const port = require("../../../firebase.json").emulators.firestore.port;
-const appId = "test-app";
+import Provider from "./provider";
+import Emulator, { clearEmulatorData, deleteEmulatorApps } from "./emulator";
 
 beforeEach(async () => {
-  await firebase.clearFirestoreData({ projectId: appId });
+  await clearEmulatorData();
 });
 
 beforeAll(async () => {
-  //await firebase.loadFirestoreRules({ projectId:appId, rules });
+  // await loadEmulatorRules();
 });
 
 afterAll(async () => {
-  await Promise.all(firebase.apps().map(app => app.delete()));
-  //const coverageUrl = `http://localhost:${port}/emulator/v1/projects/${appId}:ruleCoverage.html`;
-  //console.log(`View rule coverage information at ${coverageUrl}\n`);
+  await deleteEmulatorApps();
 });
 
 describe("Projects", () => {
@@ -23,9 +19,13 @@ describe("Projects", () => {
     displayName: "testman",
     email: "testman@example.com"
   };
-  const db = firebase.initializeTestApp({ projectId: appId, auth }).firestore();
-  const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp;
-  const provider = new Provider({ db, auth, serverTimestamp });
+
+  const emulator = new Emulator({ auth });
+  const provider = new Provider({
+    db: emulator.db,
+    auth: emulator.auth,
+    serverTimestamp: emulator.serverTimestamp
+  });
 
   it("Creates a project.", async () => {
     const projectParams = {
