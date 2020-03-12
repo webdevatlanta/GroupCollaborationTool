@@ -16,17 +16,14 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "postinstall": "printf '#/bin/sh\ncd $(git rev-parse --git-dir)/.. && yarn install' > $(git rev-parse --git-dir)/hooks/post-merge && chmod +x $(git rev-parse --git-dir)/hooks/post-merge"
+    "postinstall": "printf '#/bin/sh\ncd $(git rev-parse --git-dir)/.. && yarn install' > $(git rev-parse --git-dir)/hooks/post-merge && chmod +x $(git rev-parse --git-dir)/hooks/post-merge",
+    "start-firebase-emulator": "firebase emulators:start --only firestore"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
