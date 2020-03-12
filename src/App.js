@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import clsx from "clsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -14,8 +14,8 @@ import ProjectViewer from "./components/ProjectViewer";
 import ProjectEditor from "./components/ProjectEditor";
 import NavDrawer from "./components/NavDrawer";
 import { makeStyles } from "@material-ui/core/styles";
-import toSession, { SessionContext } from "./components/Session";
-import { FirebaseContext } from "./components/Firebase";
+import { SessionContext } from "./components/Session";
+import { FirebaseContext, useAuthUser } from "./components/Firebase";
 import * as ROUTES from "./constants/routes";
 import * as STYLES from "./constants/styles";
 
@@ -45,21 +45,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function() {
-  const firebase = useContext(FirebaseContext);
-  const [session, setSession] = useState(toSession(firebase.auth.currentUser));
+  const provider = useContext(FirebaseContext);
+  const authUser = useAuthUser(provider);
   const [drawerOpen, setDrawerOpen] = useState(true);
   const classes = useStyles();
 
-  useEffect(() => {
-    const unlisten = firebase.auth.onAuthStateChanged(user => {
-      setSession(toSession(user));
-    });
-
-    return () => unlisten();
-  }, [firebase.auth]);
-
   return (
-    <SessionContext.Provider value={session}>
+    <SessionContext.Provider value={authUser}>
       <div className={classes.root}>
         <CssBaseline />
         <Router>
