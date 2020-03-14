@@ -26,7 +26,9 @@ export default function(props) {
         </div>
       </div>
       {/* i added a filter to hide private projects*/}
-      {props.projects.filter((project => project.type !=="Private")).map((project, i) => { 
+      {props.projects
+      // .filter((project => project.type !=="Private"))
+      .map((project, i) => { 
         return (
           <div className="project-grid" style={{backgroundColor: i%2 === 0 ? '#eee' : '#ddd'}} key={i}>
             <div className="project-item">
@@ -43,6 +45,7 @@ export default function(props) {
             </div>
             <div className="project-item">
               <Link to={ viewerLink(project.id) }>details</Link>
+              {/* This is where the project owner can be specified */}
               { (project.owner === firebase.auth.currentUser.uid) &&
                 <>
                   &nbsp;|&nbsp;
