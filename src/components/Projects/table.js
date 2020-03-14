@@ -25,14 +25,18 @@ export default function(props) {
           Actions
         </div>
       </div>
-      {props.projects.map((project, i) => {
+      {/* i'm thinking .filter() might be a good method to use */}
+      {props.projects.filter((project => project.type !=="Private")).map((project, i) => { 
         return (
           <div className="project-grid" style={{backgroundColor: i%2 === 0 ? '#eee' : '#ddd'}} key={i}>
             <div className="project-item">
               {project.name}
             </div>
+            
             <div className="project-item">
-              {project.type}
+              {project.type}{/* this is where the private column goes */}
+
+
             </div>
             <div className="project-item">
               {project.description}
