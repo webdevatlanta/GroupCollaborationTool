@@ -24,7 +24,7 @@ export default function(props) {
           Actions
         </div>
       </div>
-      {/* i added a filter to hide private projects unless it belongs to the current user*/}
+      {/*I added a filter to hide private projects unless it belongs to the current user*/}
       {props.projects
       .filter((project => project.type ==="Public" || (project.owner===firebase.auth.currentUser.uid && project.type==="Private")))
       .map((project, i) => { 
