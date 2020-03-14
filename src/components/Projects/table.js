@@ -25,7 +25,7 @@ export default function(props) {
           Actions
         </div>
       </div>
-      {/* i'm thinking .filter() might be a good method to use */}
+      {/* i added a filter to hide private projects*/}
       {props.projects.filter((project => project.type !=="Private")).map((project, i) => { 
         return (
           <div className="project-grid" style={{backgroundColor: i%2 === 0 ? '#eee' : '#ddd'}} key={i}>
