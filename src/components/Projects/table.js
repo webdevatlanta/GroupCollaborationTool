@@ -8,7 +8,6 @@ export default function(props) {
   const firebase = useContext(FirebaseContext)
   const viewerLink = (id) => ROUTES.VIEW_PROJECT.replace(':id', id)
   const editorLink = (id) => ROUTES.EDIT_PROJECT.replace(':id', id)
-console.log(props.projects)
   return (
     <Paper className="projects-container">
       <div className="project-grid" style={{backgroundColor: '#888'}}>
@@ -26,7 +25,6 @@ console.log(props.projects)
         </div>
       </div>
       {/* i added a filter to hide private projects unless it belongs to the current user*/}
-
       {props.projects
       .filter((project => project.type ==="Public" || (project.owner===firebase.auth.currentUser.uid && project.type==="Private")))
       .map((project, i) => { 
@@ -37,16 +35,13 @@ console.log(props.projects)
             </div>
             
             <div className="project-item">
-              {project.type}{/* this is where the private column goes */}
-
-
+              {project.type}
             </div>
             <div className="project-item">
               {project.description}
             </div>
             <div className="project-item">
               <Link to={ viewerLink(project.id) }>details</Link>
-              {/* This is where the project owner can be specified */}
               { (project.owner === firebase.auth.currentUser.uid) &&
                 <>
                   &nbsp;|&nbsp;
