@@ -30,7 +30,7 @@ export default function(props) {
       )}
       {!profile && <p>Nothing here.</p>}
       {error && <p>{error.message}</p>}
-      <h1>Private Projects</h1>
+      
       
     </div>
   );

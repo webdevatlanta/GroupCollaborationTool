@@ -8,7 +8,7 @@ export default function(props) {
   const firebase = useContext(FirebaseContext)
   const viewerLink = (id) => ROUTES.VIEW_PROJECT.replace(':id', id)
   const editorLink = (id) => ROUTES.EDIT_PROJECT.replace(':id', id)
-
+console.log(props.projects)
   return (
     <Paper className="projects-container">
       <div className="project-grid" style={{backgroundColor: '#888'}}>
@@ -25,9 +25,10 @@ export default function(props) {
           Actions
         </div>
       </div>
-      {/* i added a filter to hide private projects*/}
+      {/* i added a filter to hide private projects unless it belongs to the current user*/}
+
       {props.projects
-      // .filter((project => project.type !=="Private"))
+      .filter((project => project.type ==="Public" || (project.owner===firebase.auth.currentUser.uid && project.type==="Private")))
       .map((project, i) => { 
         return (
           <div className="project-grid" style={{backgroundColor: i%2 === 0 ? '#eee' : '#ddd'}} key={i}>

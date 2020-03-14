@@ -7,4 +7,4 @@ export const VIEW_PROFILE = "/profile/:uid";
 export const NEW_PROJECT = "/project/new";
 export const VIEW_PROJECT = "/project/view/:id";
 export const EDIT_PROJECT = "/project/edit/:id";
-// export const PRIVATE = "/private_projects"
+
