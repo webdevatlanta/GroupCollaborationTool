@@ -1,5 +1,8 @@
 import Provider from "./provider";
-import Emulator, { clearEmulatorData, deleteEmulatorApps } from "./emulator";
+import Emulator, {
+  clearEmulatorData,
+  deleteEmulatorApps
+} from "../Firebase/emulator";
 
 beforeEach(async () => {
   await clearEmulatorData();
