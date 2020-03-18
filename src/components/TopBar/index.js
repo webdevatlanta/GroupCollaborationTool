@@ -8,13 +8,12 @@ import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import Button from "@material-ui/core/Button";
 
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import * as STYLES from "../../constants/styles";
 import { SessionContext } from "../Session";
-import NameTag from "./nametag";
+import NameTag from "../NameTag";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -86,66 +85,58 @@ const useStyles = makeStyles(theme => ({
 
 export default function(props) {
   const session = useContext(SessionContext);
-  const history = useHistory();
 
   const classes = useStyles();
-
-  const handleSignIn = event => {
-    history.push(ROUTES.SIGN_IN);
-  };
 
   const handleDrawerOpen = () => {
     props.setDrawerOpen(!props.drawerOpen);
   };
 
-  const renderAppBar = (
-    <AppBar
-      position="static"
-      className={clsx(classes.appBar, {
-        [classes.appBarShift]: props.drawerOpen
-      })}
-    >
-      <Toolbar>
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          style={props.drawerOpen ? { display: "none" } : { display: "block" }}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography className={classes.title} variant="h6" noWrap>
-          <Link to={ROUTES.LANDING} className={classes.titleLink}>
-            Groopa
-          </Link>
-        </Typography>
-        <div className={classes.search}>
-          <div className={classes.searchIcon}>
-            <SearchIcon />
+  return (
+    <div className={classes.grow}>
+      <AppBar
+        position="static"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: props.drawerOpen
+        })}
+      >
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            style={
+              props.drawerOpen ? { display: "none" } : { display: "block" }
+            }
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography className={classes.title} variant="h6" noWrap>
+            <Link to={ROUTES.LANDING} className={classes.titleLink}>
+              Groopa
+            </Link>
+          </Typography>
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput
+              }}
+              inputProps={{ "aria-label": "search" }}
+            />
           </div>
-          <InputBase
-            placeholder="Search…"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput
-            }}
-            inputProps={{ "aria-label": "search" }}
-          />
-        </div>
-        <div className={classes.grow} />
-        <div>
-          {!session && (
-            <Button color="inherit" onClick={handleSignIn}>
-              Sign In
-            </Button>
-          )}
-          {session && <NameTag />}
-        </div>
-      </Toolbar>
-    </AppBar>
+          <div className={classes.grow} />
+          <div>
+            <NameTag session={session} />
+          </div>
+        </Toolbar>
+      </AppBar>
+    </div>
   );
-
-  return <div className={classes.grow}>{renderAppBar}</div>;
 }
