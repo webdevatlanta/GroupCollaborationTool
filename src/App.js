@@ -15,8 +15,7 @@ import ProjectEditor from "./components/ProjectEditor";
 import NavDrawer from "./components/NavDrawer";
 import { makeStyles } from "@material-ui/core/styles";
 import { SessionContext } from "./components/Session";
-import { FirebaseContext } from "./components/Firebase";
-import { useAuthUser } from "./components/Provider";
+import { ProviderContext, useAuthUser } from "./components/Provider";
 import * as ROUTES from "./constants/routes";
 import * as STYLES from "./constants/styles";
 
@@ -46,7 +45,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function() {
-  const provider = useContext(FirebaseContext);
+  const provider = useContext(ProviderContext);
   const authUser = useAuthUser(provider);
   const [drawerOpen, setDrawerOpen] = useState(true);
   const classes = useStyles();

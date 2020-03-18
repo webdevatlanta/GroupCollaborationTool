@@ -1,36 +1,32 @@
-import React, {useContext, useState} from 'react'
-import {FirebaseContext} from '../Firebase'
-import Button from '@material-ui/core/Button'
+import React, { useContext, useState } from "react";
+import { ProviderContext } from "../Provider";
+import Button from "@material-ui/core/Button";
 
 export default function() {
-  const firebase = useContext(FirebaseContext)
-  const [verifying, setVerifying] = useState(false)
+  const provider = useContext(ProviderContext);
+  const [verifying, setVerifying] = useState(false);
 
-  const handleVerify = (event) => {
+  const handleVerify = event => {
     event.preventDefault();
     setVerifying(true);
-    firebase.auth.currentUser.sendEmailVerification({
-      url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
+    provider.auth.currentUser.sendEmailVerification({
+      url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT
     });
-  }
+  };
 
-  if(firebase.auth.currentUser.emailVerified) {
-    return (
-      <div>
-        {firebase.auth.currentUser.email} &#x2714;
-      </div>
-    )
+  if (provider.auth.currentUser.emailVerified) {
+    return <div>{provider.auth.currentUser.email} &#x2714;</div>;
   } else {
     return (
       <div>
-        {firebase.auth.currentUser.email}
-        {verifying &&
-          <Button color="secondary" >Verifying...</Button>
-        }
-        {!verifying &&
-          <Button color="primary" onClick={handleVerify}>click to verify</Button>
-        }
+        {provider.auth.currentUser.email}
+        {verifying && <Button color="secondary">Verifying...</Button>}
+        {!verifying && (
+          <Button color="primary" onClick={handleVerify}>
+            click to verify
+          </Button>
+        )}
       </div>
-    )
+    );
   }
 }

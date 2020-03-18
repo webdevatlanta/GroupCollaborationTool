@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import ForgotPassword from "./index";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 import { SessionContext } from "../Session";
 import { MemoryRouter } from "react-router-dom";
 
@@ -25,9 +25,9 @@ it("renders without crashing", async () => {
   act(() => {
     ReactDOM.render(
       <MemoryRouter>
-        <FirebaseContext.Provider value={fakebase}>
+        <ProviderContext.Provider value={fakebase}>
           <ForgotPassword />
-        </FirebaseContext.Provider>
+        </ProviderContext.Provider>
       </MemoryRouter>,
       div
     );

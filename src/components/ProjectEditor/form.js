@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 import { SessionContext } from "../Session";
 
 export default function(params) {
-  const firebase = useContext(FirebaseContext);
+  const provider = useContext(ProviderContext);
   const session = useContext(SessionContext);
 
   const [owner] = useState(session.uid);
@@ -20,7 +20,7 @@ export default function(params) {
   const onSubmit = event => {
     event.preventDefault();
 
-    firebase
+    provider
       .updateProject(params.projectId, {
         owner,
         name,

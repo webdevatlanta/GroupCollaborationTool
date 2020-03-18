@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { FirebaseContext } from "./components/Firebase";
+import { ProviderContext } from "./components/Provider";
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
 
-  const fakebase = {
+  const provider = {
     auth: {
       currentUser: {
         uid: 1,
@@ -17,9 +17,9 @@ it("renders without crashing", () => {
   };
 
   ReactDOM.render(
-    <FirebaseContext.Provider value={fakebase}>
+    <ProviderContext.Provider value={provider}>
       <App />
-    </FirebaseContext.Provider>,
+    </ProviderContext.Provider>,
     div
   );
 });

@@ -9,7 +9,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 import { SessionContext } from "../Session";
 import { NavLink } from "react-router-dom";
 // import activeComponent from 'react-router-active-component';
@@ -34,9 +34,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function (props) {
+export default function(props) {
   const classes = useStyles();
-  const firebase = useContext(FirebaseContext);
+  const provider = useContext(ProviderContext);
   const session = useContext(SessionContext);
   const theme = useTheme();
   const history = useHistory();
@@ -48,7 +48,7 @@ export default function (props) {
   const handleAccountSelected = () => history.push(ROUTES.EDIT_PROFILE);
   const handleProjectsSelected = () => history.push(ROUTES.LANDING);
   const handleSignoutClicked = () =>
-    firebase.doSignOut().then(() => history.push(ROUTES.LANDING));
+    provider.doSignOut().then(() => history.push(ROUTES.LANDING));
   const handleSigninClicked = () => history.push(ROUTES.SIGN_IN);
 
   return (
@@ -66,8 +66,8 @@ export default function (props) {
           {theme.direction === "ltr" ? (
             <ChevronLeftIcon />
           ) : (
-              <ChevronRightIcon />
-            )}
+            <ChevronRightIcon />
+          )}
         </IconButton>
       </div>
       <Divider />

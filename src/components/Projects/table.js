@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Paper } from "@material-ui/core";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 import * as ROUTES from "../../constants/routes";
 
 export default function(props) {
-  const firebase = useContext(FirebaseContext);
+  const provider = useContext(ProviderContext);
   const viewerLink = id => ROUTES.VIEW_PROJECT.replace(":id", id);
   const editorLink = id => ROUTES.EDIT_PROJECT.replace(":id", id);
   return (
@@ -21,7 +21,7 @@ export default function(props) {
         .filter(
           project =>
             project.type === "Public" ||
-            (project.owner === firebase.auth.currentUser.uid &&
+            (project.owner === provider.auth.currentUser.uid &&
               project.type === "Private")
         )
         .map((project, i) => {
@@ -37,7 +37,7 @@ export default function(props) {
               <div className="project-item">{project.description}</div>
               <div className="project-item">
                 <Link to={viewerLink(project.id)}>details</Link>
-                {project.owner === firebase.auth.currentUser.uid && (
+                {project.owner === provider.auth.currentUser.uid && (
                   <>
                     &nbsp;|&nbsp;
                     <Link to={editorLink(project.id)}>edit</Link>

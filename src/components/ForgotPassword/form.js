@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 
 const ForgotPasswordFrom = () => {
-  const firebase = useContext(FirebaseContext);
+  const provider = useContext(ProviderContext);
   const [email, setEmail] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState("");
@@ -14,7 +14,7 @@ const ForgotPasswordFrom = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    firebase
+    provider
       .sendPasswordResetEmail(email)
       .then(() => {
         setSuccessMessage("Email sent");

@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import Firebase, { FirebaseContext } from "./components/Firebase";
-import Provider from "./components/Provider";
+import Firebase from "./components/Firebase";
+import Provider, { ProviderContext } from "./components/Provider";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
 
@@ -15,9 +15,9 @@ const provider = new Provider({
 });
 
 ReactDOM.render(
-  <FirebaseContext.Provider value={provider}>
+  <ProviderContext.Provider value={provider}>
     <App />
-  </FirebaseContext.Provider>,
+  </ProviderContext.Provider>,
   document.getElementById("root")
 );
 

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import EditorForm from "./form";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 import { SessionContext } from "../Session";
 
 it("renders without crashing", () => {
@@ -26,11 +26,11 @@ it("renders without crashing", () => {
   };
 
   ReactDOM.render(
-    <FirebaseContext.Provider value={fakebase}>
+    <ProviderContext.Provider value={fakebase}>
       <SessionContext.Provider value={fakesession}>
         <EditorForm projectId={fakeproject_id} project={fakeproject} />
       </SessionContext.Provider>
-    </FirebaseContext.Provider>,
+    </ProviderContext.Provider>,
     div
   );
 });

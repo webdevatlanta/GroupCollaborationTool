@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 
 export default function(props) {
   const {
@@ -8,16 +8,16 @@ export default function(props) {
     }
   } = props;
 
-  const firebase = useContext(FirebaseContext);
+  const provider = useContext(ProviderContext);
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    firebase
+    provider
       .getProfile(uid)
       .then(setProfile)
       .catch(setError);
-  }, [firebase, uid]);
+  }, [provider, uid]);
 
   return (
     <div>

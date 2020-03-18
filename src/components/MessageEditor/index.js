@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 import { SessionContext } from "../Session";
 
 export default function(params) {
-  const firebase = useContext(FirebaseContext);
+  const provider = useContext(ProviderContext);
   const session = useContext(SessionContext);
   const [content, setContent] = useState("");
   const [error, setError] = useState("");
@@ -11,7 +11,7 @@ export default function(params) {
   const validate = () => content.length > 0;
   const handleSubmit = evt => {
     evt.preventDefault();
-    firebase
+    provider
       .addProjectMessage(params.projectId, {
         authorDisplayName: session.displayName,
         authorUid: session.uid,
