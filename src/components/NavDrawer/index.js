@@ -12,7 +12,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { ProviderContext } from "../Provider";
 import { SessionContext } from "../Session";
 import { NavLink } from "react-router-dom";
-// import activeComponent from 'react-router-active-component';
 
 import * as ROUTES from "../../constants/routes.js";
 import * as STYLES from "../../constants/styles.js";
@@ -47,9 +46,6 @@ export default function(props) {
 
   const handleAccountSelected = () => history.push(ROUTES.EDIT_PROFILE);
   const handleProjectsSelected = () => history.push(ROUTES.LANDING);
-  const handleSignoutClicked = () =>
-    provider.doSignOut().then(() => history.push(ROUTES.LANDING));
-  const handleSigninClicked = () => history.push(ROUTES.SIGN_IN);
 
   return (
     <Drawer
@@ -90,24 +86,6 @@ export default function(props) {
         </ListItem>
       </List>
       <Divider />
-      <List>
-        {session && (
-          <ListItem button>
-            <ListItemText
-              primary="Sign Out"
-              onClick={handleSignoutClicked}
-            ></ListItemText>
-          </ListItem>
-        )}
-        {!session && (
-          <ListItem button>
-            <ListItemText
-              primary="Sign In"
-              onClick={handleSigninClicked}
-            ></ListItemText>
-          </ListItem>
-        )}
-      </List>
     </Drawer>
   );
 }
