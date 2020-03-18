@@ -15,7 +15,8 @@ import ProjectEditor from "./components/ProjectEditor";
 import NavDrawer from "./components/NavDrawer";
 import { makeStyles } from "@material-ui/core/styles";
 import { SessionContext } from "./components/Session";
-import { FirebaseContext, useAuthUser } from "./components/Firebase";
+import { FirebaseContext } from "./components/Firebase";
+import { useAuthUser } from "./components/Provider";
 import * as ROUTES from "./constants/routes";
 import * as STYLES from "./constants/styles";
 
