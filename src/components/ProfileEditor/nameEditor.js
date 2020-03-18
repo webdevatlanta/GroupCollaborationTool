@@ -1,33 +1,33 @@
 import React, { useState, useContext, useEffect } from "react";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 
 export default function() {
-  const firebase = useContext(FirebaseContext);
+  const provider = useContext(ProviderContext);
   const [displayName, setDisplayName] = useState(
-    firebase.auth.currentUser.displayName
+    provider.auth.currentUser.displayName
   );
   const [validated, setValidated] = useState(false);
 
   const [error, setError] = useState("");
 
   useEffect(() => {
-    setDisplayName(firebase.auth.currentUser.displayName);
-  }, [firebase.auth.currentUser.displayName]);
+    setDisplayName(provider.auth.currentUser.displayName);
+  }, [provider.auth.currentUser.displayName]);
 
   useEffect(() => {
     setValidated(
       displayName &&
         displayName.length > 0 &&
-        displayName !== firebase.auth.currentUser.displayName
+        displayName !== provider.auth.currentUser.displayName
     );
-  }, [displayName, firebase.auth.currentUser.displayName]);
+  }, [displayName, provider.auth.currentUser.displayName]);
 
   const onSubmit = event => {
     event.preventDefault();
 
     setValidated(false);
 
-    firebase.setDisplayName(displayName).catch(setError);
+    provider.setDisplayName(displayName).catch(setError);
   };
 
   return (

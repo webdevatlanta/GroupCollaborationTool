@@ -2,12 +2,12 @@ import React, { useContext, useState, useEffect } from "react";
 import EditorForm from "./form";
 import MessageEditor from "../MessageEditor";
 import MessageViewer from "../MessageViewer";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 
 export default function(props) {
   const [error, setError] = useState(null);
   const [project, setProject] = useState(null);
-  const firebase = useContext(FirebaseContext);
+  const provider = useContext(ProviderContext);
   const {
     match: {
       params: { id }
@@ -15,11 +15,11 @@ export default function(props) {
   } = props;
 
   useEffect(() => {
-    firebase
+    provider
       .getProject(id)
       .then(setProject)
       .catch(setError);
-  }, [id, firebase]);
+  }, [id, provider]);
 
   if (!project) {
     return (

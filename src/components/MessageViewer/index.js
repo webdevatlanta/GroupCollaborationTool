@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 
 export default function(params) {
-  const firebase = useContext(FirebaseContext);
+  const provider = useContext(ProviderContext);
   const [messages, setMessages] = useState([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const unsubscribe = firebase.subscribeProjectMessages(
+    const unsubscribe = provider.subscribeProjectMessages(
       params.projectId,
       setMessages,
       setError
     );
     return () => unsubscribe();
-  }, [params.projectId, firebase]);
+  }, [params.projectId, provider]);
 
   const renderMessages = messages.map((message, key) => (
     <li key={key}>{message.content}</li>

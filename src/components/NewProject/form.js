@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 import { SessionContext } from "../Session";
 import { useHistory } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
@@ -7,7 +7,7 @@ import * as PROJECT_TYPE from "../../constants/project_types";
 
 export default function() {
   const history = useHistory();
-  const firebase = useContext(FirebaseContext);
+  const provider = useContext(ProviderContext);
   const session = useContext(SessionContext);
   const [owner] = useState(session.uid);
   const [name, setName] = useState("");
@@ -23,7 +23,7 @@ export default function() {
   const onSubmit = event => {
     event.preventDefault();
 
-    firebase
+    provider
       .createProject({ owner, name, type, description, repoLink })
       .then(() => history.push(ROUTES.LANDING))
       .catch(error => setError(error));

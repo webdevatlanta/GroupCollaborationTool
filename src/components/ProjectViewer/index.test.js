@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import ProjectViewer from "./index";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 import { SessionContext } from "../Session";
 
 it("renders without crashing", async () => {
@@ -46,11 +46,11 @@ it("renders without crashing", async () => {
 
   act(() => {
     ReactDOM.render(
-      <FirebaseContext.Provider value={fakebase}>
+      <ProviderContext.Provider value={fakebase}>
         <SessionContext.Provider value={fakesession}>
           <ProjectViewer match={match} />
         </SessionContext.Provider>
-      </FirebaseContext.Provider>,
+      </ProviderContext.Provider>,
       div
     );
   });

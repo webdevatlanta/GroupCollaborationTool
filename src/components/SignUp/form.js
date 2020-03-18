@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 import { useHistory } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 
 export default function() {
   const history = useHistory();
-  const firebase = useContext(FirebaseContext);
+  const provider = useContext(ProviderContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -22,7 +22,7 @@ export default function() {
   const onSubmit = event => {
     event.preventDefault();
 
-    firebase
+    provider
       .doCreateUserWithEmailAndPassword(email, password)
       .then(() => history.push(ROUTES.EDIT_PROFILE))
       .catch(error => setError(error));

@@ -1,37 +1,37 @@
-import React, {useState, useEffect, useContext} from 'react'
-import {FirebaseContext} from '../Firebase'
-import {SessionContext} from '../Session'
+import React, { useState, useEffect, useContext } from "react";
+import { ProviderContext } from "../Provider";
+import { SessionContext } from "../Session";
 
 export default function() {
-  const firebase = useContext(FirebaseContext)
-  const session = useContext(SessionContext)
+  const provider = useContext(ProviderContext);
+  const session = useContext(SessionContext);
 
-  const [user] = useState(session)
-  const [description, setDescription] = useState("")
-  const [saveable, setSaveable] = useState(false)
-  const [error, setError] = useState("")
+  const [user] = useState(session);
+  const [description, setDescription] = useState("");
+  const [saveable, setSaveable] = useState(false);
+  const [error, setError] = useState("");
 
-  useEffect( () => {
-    firebase
+  useEffect(() => {
+    provider
       .getProfile(user.uid)
-      .then(({description}) => setDescription(description))
-      .catch(setError)
-  }, [user.uid, firebase])
+      .then(({ description }) => setDescription(description))
+      .catch(setError);
+  }, [user.uid, provider]);
 
-  const onChange = (event) => {
-    setDescription(event.target.value)
-    setSaveable(true)
-  }
+  const onChange = event => {
+    setDescription(event.target.value);
+    setSaveable(true);
+  };
 
-  const onSubmit = (event) => {
+  const onSubmit = event => {
     event.preventDefault();
 
     setSaveable(false);
 
-    firebase
-      .updateProfile(user.uid, {description})
-      .catch( error => setError(error) )
-  }
+    provider
+      .updateProfile(user.uid, { description })
+      .catch(error => setError(error));
+  };
 
   return (
     <div>
@@ -43,11 +43,11 @@ export default function() {
           value={description}
           onChange={e => onChange(e)}
         />
-        <br/>
+        <br />
         <input type="submit" value="Save" disabled={!saveable} />
 
         {error && <p>{error.message}</p>}
       </form>
     </div>
-  )
+  );
 }

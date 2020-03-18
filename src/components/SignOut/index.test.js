@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import SignOut from "./index";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 
 it("renders without crashing", async () => {
   const div = document.createElement("div");
@@ -22,9 +22,9 @@ it("renders without crashing", async () => {
 
   act(() => {
     ReactDOM.render(
-      <FirebaseContext.Provider value={fakebase}>
+      <ProviderContext.Provider value={fakebase}>
         <SignOut />
-      </FirebaseContext.Provider>,
+      </ProviderContext.Provider>,
       div
     );
   });

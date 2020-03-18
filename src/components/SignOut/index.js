@@ -1,12 +1,12 @@
-import React, {useContext} from 'react'
-import {FirebaseContext} from '../Firebase'
+import React, { useContext } from "react";
+import { ProviderContext } from "../Provider";
 
 export default function() {
-  const firebase = useContext(FirebaseContext)
+  const provider = useContext(ProviderContext);
 
   return (
-    <button type="button" onClick={firebase.doSignOut}>
+    <button type="button" onClick={provider.doSignOut}>
       Sign Out
     </button>
-  )
+  );
 }

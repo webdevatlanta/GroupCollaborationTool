@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 import { SessionContext } from "../Session";
 import EmailVerifier from "./emailVerifier";
 import NameEditor from "./nameEditor";
@@ -10,7 +10,7 @@ import * as ROUTES from "../../constants/routes";
 
 export default function() {
   const history = useHistory();
-  const firebase = useContext(FirebaseContext);
+  const provider = useContext(ProviderContext);
   const session = useContext(SessionContext);
   const [viewerLink, setViewerLink] = useState("");
 
@@ -24,7 +24,7 @@ export default function() {
   }, [session]);
 
   const handleLogout = () => {
-    firebase.doSignOut();
+    provider.doSignOut();
     history.push(ROUTES.LANDING);
   };
 

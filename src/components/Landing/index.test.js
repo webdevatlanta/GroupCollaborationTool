@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { MemoryRouter } from "react-router-dom";
 import { act } from "react-dom/test-utils";
 import Landing from "./index";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 import { SessionContext } from "../Session";
 
 it("renders without crashing", async () => {
@@ -27,11 +27,11 @@ it("renders without crashing", async () => {
   act(() => {
     ReactDOM.render(
       <MemoryRouter>
-        <FirebaseContext.Provider value={fakebase}>
+        <ProviderContext.Provider value={fakebase}>
           <SessionContext.Provider value={fakesession}>
             <Landing />
           </SessionContext.Provider>
-        </FirebaseContext.Provider>
+        </ProviderContext.Provider>
       </MemoryRouter>,
       div
     );

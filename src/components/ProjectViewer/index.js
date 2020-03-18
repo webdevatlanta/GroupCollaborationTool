@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 import { SessionContext } from "../Session";
 import MessageViewer from "../MessageViewer";
 import FollowersViewer from "../FollowersViewer";
@@ -13,21 +13,21 @@ export default function(props) {
       params: { id }
     }
   } = props;
-  const firebase = useContext(FirebaseContext);
+  const provider = useContext(ProviderContext);
   const session = useContext(SessionContext);
   const [error, setError] = useState(null);
   const [project, setProject] = useState(null);
 
   useEffect(() => {
-    firebase
+    provider
       .getProject(id)
       .then(setProject)
       .catch(setError);
-  }, [id, firebase]);
+  }, [id, provider]);
 
   const followProject = () => {
     const params = { project_id: id, user_id: session.uid };
-    firebase.addProjectFollower(params).catch(setError);
+    provider.addProjectFollower(params).catch(setError);
   };
 
   if (!project) {

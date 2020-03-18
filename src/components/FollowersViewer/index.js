@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
-import { FirebaseContext } from "../Firebase";
+import { ProviderContext } from "../Provider";
 
 export default function(params) {
-  const firebase = useContext(FirebaseContext);
+  const provider = useContext(ProviderContext);
   const [followers, setFollowers] = useState([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
     if (params.projectId) {
-      firebase
+      provider
         .getProjectFollowers(params.projectId)
         .then(setFollowers)
         .catch(setError);
     }
-  }, [params.projectId, firebase]);
+  }, [params.projectId, provider]);
 
   const renderFollowers = followers.map((follower, key) => (
     <li key={key}>{follower.displayName}</li>
