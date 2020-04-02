@@ -133,7 +133,7 @@ export default function(props) {
           </div>
           <div className={classes.grow} />
           <div>
-            <NameTag session={session} />
+            <NameTag />
           </div>
         </Toolbar>
       </AppBar>

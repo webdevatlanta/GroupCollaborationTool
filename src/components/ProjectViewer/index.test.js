@@ -2,8 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import ProjectViewer from "./index";
-import { ProviderContext } from "../Provider";
-import { SessionContext } from "../Session";
+import TestProvider, { projectPromise } from "../TestProvider";
 
 it("renders without crashing", async () => {
   const div = document.createElement("div");
@@ -16,41 +15,14 @@ it("renders without crashing", async () => {
     repoLink: "https://test.example.com/hi"
   };
 
-  const fakesession = {
-    uid: 123
-  };
-
-  const projectPromise = {
-    resolve: undefined,
-    reject: undefined
-  };
-
-  const fakebase = {
-    getProject: id =>
-      new Promise((resolve, reject) => {
-        projectPromise.resolve = resolve;
-      }),
-
-    subscribeProjectMessages: (id, callback, error) => {
-      callback([]); // Return an empty list of messages.
-      return function() {};
-    },
-
-    getProjectFollowers: id => {
-      return Promise.resolve([{ displayName: "me" }]);
-    }
-  };
-
   // This would be provided by the Router, taken from the URL.
   const match = { params: { id: fakeproject_id } };
 
   act(() => {
     ReactDOM.render(
-      <ProviderContext.Provider value={fakebase}>
-        <SessionContext.Provider value={fakesession}>
-          <ProjectViewer match={match} />
-        </SessionContext.Provider>
-      </ProviderContext.Provider>,
+      <TestProvider>
+        <ProjectViewer match={match} />
+      </TestProvider>,
       div
     );
   });
