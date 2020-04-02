@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
+import { SessionContext } from "../Session";
 import * as ROUTES from "../../constants/routes";
 
-export default function({ session }) {
+export default function() {
   const history = useHistory();
+  const session = useContext(SessionContext);
 
   const handleSignIn = event => {
     history.push(ROUTES.SIGN_IN);

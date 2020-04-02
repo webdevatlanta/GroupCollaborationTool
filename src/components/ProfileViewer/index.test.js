@@ -2,34 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import ProfileViewer from "./index";
-import { ProviderContext } from "../Provider";
-import { SessionContext } from "../Session";
+import TestProvider, { profilePromise } from "../TestProvider";
 
 it("renders without crashing", async () => {
   const div = document.createElement("div");
 
   const fakeprofile_id = "hij456";
 
-  const fakesession = {
-    uid: 123
-  };
-
   const fakeProfile = {
     displayName: "Amanda Huggenkis",
     description: "I am a mock person."
-  };
-
-  const profilePromise = {
-    resolve: undefined,
-    reject: undefined
-  };
-
-  const fakebase = {
-    getProfile: id =>
-      new Promise((resolve, reject) => {
-        profilePromise.resolve = resolve;
-        profilePromise.reject = reject;
-      })
   };
 
   // This would be provided by the Router, taken from the URL.
@@ -37,11 +19,9 @@ it("renders without crashing", async () => {
 
   act(() => {
     ReactDOM.render(
-      <ProviderContext.Provider value={fakebase}>
-        <SessionContext.Provider value={fakesession}>
-          <ProfileViewer match={match} />
-        </SessionContext.Provider>
-      </ProviderContext.Provider>,
+      <TestProvider>
+        <ProfileViewer match={match} />
+      </TestProvider>,
       div
     );
   });
